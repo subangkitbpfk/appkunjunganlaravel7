@@ -6,7 +6,7 @@
     </div>
 </div>
 <div class="row" style="background-color: white">
-    <div class="col-md-12" style="margin-left:5%">
+    <div class="col-md-6" style="margin-left:5%">
        <label for="" style="padding:10px;background-color:#dfe6e9"><i class="fa fa-plus"></i> INPUTAN DINAS LUAR </label>
     </div>
                          @if (\Session::has('success'))
@@ -42,7 +42,7 @@
                 </td>
             </tr>
             </tbody>
-            
+
         </table>
         <button type="button" onclick="add_form()" class="btn btn-sm btn-success" style="margin-left:5%"><i class="fa fa-plus"></i> Petugas</button>
     </div>
@@ -63,31 +63,31 @@
                         <select class="form-control fasyankes" name="fasyankes" id="fasyankes" style="background-color:gray;color:white;width:100%;font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;font-size:12pt">
                             {{-- <option value="-" selected="selected">-Pilih- </option>     --}}
                             @foreach ($datas as $data )
-                            <option value="{{$data->id}}" >{{Str::limit($data->nama,50)}}</option>    
+                            <option value="{{$data->id}}" >{{Str::limit($data->nama,50)}}</option>
                             @endforeach
                           </select>
                     </td><td><button style="margin-left:3px;margin-bottom:5px" class="btn btn-sm btn-success" data-toggle="modal" data-target="#myModal">+ Fasyankes</button></td></tr>
                 <tr style="background-color:gray;color:white;">
                     <td style="border-right:1px solid white">
-                        Kode Faskes 
+                        Kode Faskes
                     </td>
                     <td style="border-right:1px solid white">
-                        Nama Faskes 
+                        Nama Faskes
                     </td>
                     <td style="border-right:1px solid white">
-                        Alamat Faskes 
+                        Alamat Faskes
                     </td>
                     <td style="border-right:1px solid white">
-                        Kota 
+                        Kota
                     </td>
                     <td>
                     </td>
                 </tr>
                 </tbody>
             </table>
-            
+
         </div>
-       
+
     {{-- </div> --}}
 </div>
 {{-- layout button --}}
@@ -105,7 +105,7 @@
                     <button type="button" class="btn btn-md btn-danger" id="btndeaktif" style="padding: 18px;margin-left:10px;margin-bottom:40px">DEAKTIF</button>
                 </td>
             </tr>
-            
+
         </table>
     </div>
 </div>
@@ -115,7 +115,7 @@
 {{-- modal --}}
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog modal-lg">
-    
+
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
@@ -129,7 +129,7 @@
           {{-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> --}}
         </div>
       </div>
-      
+
     </div>
   </div>
 
@@ -142,7 +142,7 @@
 @section('custom-foot')
 <script type="text/javascript">
 $(document).ready(function(){
-    
+
     $('#fasyankes').select2();
     $('.pegawai').select2();
     $.fn.datepicker.defaults.format = "yyyy-mm-dd";
@@ -150,7 +150,7 @@ $(document).ready(function(){
     $(".datepickermulai").datepicker({
             clearButton: true,
             autoclose: true,
-            
+
             position:"left",
             Placement:'bottom'
     });
@@ -160,7 +160,7 @@ $(document).ready(function(){
             Placement:'bottom',
             position:"left",
     });
-    
+
     $("select.fasyankes").change(function(){
         var id = $(this).children("option:selected").val();
         // alert("id" + id);
@@ -190,14 +190,14 @@ $(document).ready(function(){
 
 function add_form()
         {
-            
+
             $.ajax({
             url: "{{ URL('get-pegawai') }}",
             type: 'GET',
             dataType: 'json',
                 success:function(data){ // detailrs
                 // console.log(data.nama);
-                
+
                 console.log(data);
                 console.log(data[0].nama);
                 console.log(data.length);
@@ -217,13 +217,13 @@ function add_form()
                 // $('#form-body').select2();
                 // $('.pegawai').select2();
                 }
-                
+
             });
-            
-            
-            
+
+
+
         }
- 
+
         function del_form(id)
         {
             id.closest('tr').remove();
@@ -233,7 +233,7 @@ function add_form()
             alert(id);
 
         }
-        
+
 
 </script>
 @stop

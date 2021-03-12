@@ -16,6 +16,7 @@ use App\Detailpegawaidinasluar as dptl;
 use App\Detailtujuandinasluar as dtdl;
 use App\Detailkontakkunjungan as detailkontak;
 use App\Dokumendinas as dk;
+use App\Detaildinasluarhasil as ddlh;
 
 
 class KunjunganController extends Controller
@@ -42,15 +43,21 @@ class KunjunganController extends Controller
 
     public function postlaporandinas(Request $request){
       // dd($request->all());
-      // dd($request->berkas);
-      // dd($request->file('berkas'));
-      // dd(count($request->file('berkas')));
-      //
-      // dd("test");
-
-
+      // dd(intval($request->faskes_id[0]));
+      /* insert hasil dinas luar */
+      $insertddlh  = ddlh::create([
+                        'dinas_luar_id' =>$request->kodedinasluar,
+                        'fasyankes_id' =>$request->faskes_id[0],
+                        'hasil_dinas' =>$request->hasildinasluar
+                      ]);
+      if(!$insertddlh){
+        dd("gagal");
+      }
       /* insert dokumen dinas */
       $tujuan_upload = 'upload_dokumen';
+      if(!$request->file('berkas')){//validasi berkas harus diisi
+        dd("berkas harus diisi");
+      }
       if(count($request->file('berkas'))&& $request->berkas !== ''){
           for($m=0;$m<count($request->file('berkas'));$m++){
             //lakukkan insert disini
@@ -59,7 +66,6 @@ class KunjunganController extends Controller
             $ext = $request->file('berkas')[$m]->getClientOriginalExtension();//extension
             $nama_file = "bpfksby-".$m."-".time()."_".$request->kodedinasluar."_".date("Ymd_His").".".$ext;
             // dd($nama_file);
-
             $file->move('upload_dokumen',$nama_file);
             $filePath= 'upload_dokumen/'.$nama_file; //namepath
             $real_patch = $request->file('berkas')[$m]->getRealPath();
@@ -73,17 +79,18 @@ class KunjunganController extends Controller
               'keterangan' => $request->keteranganberkas[$m]
             ]);
           }
+
           if(!$insertberkas){
             dd("gagal upload berkas");
           }
 
+      }else{
+        dd("berkas harus diisi");
       }
-      dd($insertberkas);
-      //end if insert berkas
+      /*end if insert berkas */
 
       /*kondisi perhitungan array pada table kontak acuan saya ambil nama*/
-      // dd($request->id);
-      if(count($request->id)>0 && $request->id !== ''){
+      if(!empty($request->id)){
           for($i=0;$i<count($request->id);$i++){
             // insert data document
             $insert = detailkontak::create([
@@ -94,15 +101,24 @@ class KunjunganController extends Controller
                       'kontak_satu' => @$request->namakontaksatu[$i],
                       'kontak_dua' => @$request->namakontakdua[$i],
                     ]);
-                    // dd($insert);
           }
-          if(!insert){
+          if(!$insert){
             dd("gagal");
           }
 
+      }//end if
+      //update tabel tim_yang_dituju status = 1 (sudah diinput)
+
+      $affectedRows = dtdl::where('fasyankes_id', intval($request->faskes_id[0]))->update(['status' => 1]);
+      if(!$affectedRows){
+        dd("gagal update status tim tujuan");
       }
 
+
       /* insert tabel persetujuan */
+      if($insertddlh){
+        return redirect()->back()->with('success', "Data sudah di masukkan dengan sukses!");
+      }
 
 
     }
@@ -159,15 +175,16 @@ class KunjunganController extends Controller
         // dd($dt->tujuandinas);
         // dd($pegawais);
         // dd($dt->pegawaidinasluar->pegawai);
-
-
-
       }
       // dd($pegawais);
-
-
       return view('formkunjungan.view',compact('data'));
 
+    }
+
+    public function viewpostlaporandinas(){
+      //data fasyankes yang sudah di entry
+      // $data =
+      // return view('formlaporandinas.view',compact('data'));
     }
 
     public function formlaporandinas(){

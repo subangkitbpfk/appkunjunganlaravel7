@@ -101,6 +101,7 @@ Route::group(['middleware' => ['role:admin']], function () {
 
   Route::get('form-laporan-dinas','kunjunganController@formlaporandinas');
   Route::post('form-laporan-dinas','kunjunganController@postlaporandinas');
+  Route::get('view-laporan-dinas','kunjunganController@viewpostlaporandinas');
   Route::get('getfasyankesfromdinas/{id}','kunjunganController@getffdinas');
 
   /*admin */

@@ -12,6 +12,17 @@
        <label for="" style="padding:10px;background-color:#dfe6e9"><i class="fa fa-plus"></i> INPUTAN LAPORAN DINAS LUAR </label>
     </div>
 </div>
+<div class="row">
+  <div class="col col-md-12">
+    @if (\Session::has('success'))
+    <div class="alert alert-info" style="margin-left:5%;background-color:#81ecec">
+    <ul>
+       <li style="list-style-type: none;"><b> {!! \Session::get('success') !!}</b></li>
+    </ul>
+    </div>
+    @endif
+  </div>
+</div>
 
 {{--  --}}
 <form method="post" action="{{url('form-laporan-dinas')}}" enctype="multipart/form-data">
@@ -21,6 +32,7 @@
         <div class="form-group">
             <label for="sel1">Kode Dinas Luar:</label>
             <select class="form-control kodedinasluar" id="kodedinasluar" name="kodedinasluar">
+                <option value="-">- PILIH -</option>
                 @foreach ( $dtinputandinas as $dt)
                 <option value="{{$dt->id}}">{{$dt->id}}</option>
                 @endforeach
@@ -176,6 +188,12 @@ $(document).ready(function(){
             type: 'GET',
             dataType: 'json',
                 success:function(data){ // detailrs
+                // console.log(data);
+                if(data[0] === undefined){
+                  console.log("tidak ada");
+                  $("#html-faskes").html("");
+                  $("#persetujuan").html("");
+                }
                 // console.log(data[0].pegawai);
                 // console.log(data.length);
                 // console.log(data[0].dinasluar.tanggal_berangkat);
