@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Dokumendinas extends Model
 {
   protected $table = 'dokumen_dinas';
-  protected $fillable = ['dinas_luar_id','fasyankes_id','nama_dokumen','path','keterangan'];
+  protected $fillable = ['dinas_luar_id','fasyankes_id','nama_dokumen','nama_dokumen_lama','path','keterangan'];
   public $timestamps  = false;
 
   public function dinasluar(){

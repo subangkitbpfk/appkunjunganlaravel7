@@ -14,7 +14,7 @@
 </div>
 
 {{--  --}}
-<form method="post" action="{{url('form-laporan-dinas')}}">
+<form method="post" action="{{url('form-laporan-dinas')}}" enctype="multipart/form-data">
   {{csrf_field()}}
 <div class="row">
     <div class="col-md-6" style="margin-left:5%;padding-bottom:5px">

@@ -14,7 +14,8 @@ use Carbon\Carbon;
 use App\Headerdinasluar as hd;
 use App\Detailpegawaidinasluar as dptl;
 use App\Detailtujuandinasluar as dtdl;
-
+use App\Detailkontakkunjungan as detailkontak;
+use App\Dokumendinas as dk;
 
 
 class KunjunganController extends Controller
@@ -40,7 +41,70 @@ class KunjunganController extends Controller
     }
 
     public function postlaporandinas(Request $request){
-      dd($request->all());
+      // dd($request->all());
+      // dd($request->berkas);
+      // dd($request->file('berkas'));
+      // dd(count($request->file('berkas')));
+      //
+      // dd("test");
+
+
+      /* insert dokumen dinas */
+      $tujuan_upload = 'upload_dokumen';
+      if(count($request->file('berkas'))&& $request->berkas !== ''){
+          for($m=0;$m<count($request->file('berkas'));$m++){
+            //lakukkan insert disini
+            $file = $request->file('berkas')[$m];
+            $nama_old = $request->file('berkas')[$m]->getClientOriginalName();
+            $ext = $request->file('berkas')[$m]->getClientOriginalExtension();//extension
+            $nama_file = "bpfksby-".$m."-".time()."_".$request->kodedinasluar."_".date("Ymd_His").".".$ext;
+            // dd($nama_file);
+
+            $file->move('upload_dokumen',$nama_file);
+            $filePath= 'upload_dokumen/'.$nama_file; //namepath
+            $real_patch = $request->file('berkas')[$m]->getRealPath();
+
+            $insertberkas = dk::create([
+              'dinas_luar_id' => $request->kodedinasluar,
+              'fasyankes_id' => $request->faskes_id[0],
+              'nama_dokumen_lama' => $nama_old,
+              'nama_dokumen' => $nama_file,
+              'path' => $filePath,
+              'keterangan' => $request->keteranganberkas[$m]
+            ]);
+          }
+          if(!$insertberkas){
+            dd("gagal upload berkas");
+          }
+
+      }
+      dd($insertberkas);
+      //end if insert berkas
+
+      /*kondisi perhitungan array pada table kontak acuan saya ambil nama*/
+      // dd($request->id);
+      if(count($request->id)>0 && $request->id !== ''){
+          for($i=0;$i<count($request->id);$i++){
+            // insert data document
+            $insert = detailkontak::create([
+                      'dinas_luar_id' => $request->kodedinasluar,
+                      'fasyankes_id' => $request->faskes_id[0],//fasyankes
+                      'nama_kontak' => $request->id[$i],
+                      'jabatan_kontak' => @$request->namajabatan[$i],
+                      'kontak_satu' => @$request->namakontaksatu[$i],
+                      'kontak_dua' => @$request->namakontakdua[$i],
+                    ]);
+                    // dd($insert);
+          }
+          if(!insert){
+            dd("gagal");
+          }
+
+      }
+
+      /* insert tabel persetujuan */
+
+
     }
 
 

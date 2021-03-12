@@ -105,7 +105,6 @@ Route::group(['middleware' => ['role:admin']], function () {
 
   /*admin */
 
-
 // end dtjson
   Route::get('laporan-kunjugan','LaporankunjunganController@index');
   Route::get('halamanutama','KunjunganController@index');
