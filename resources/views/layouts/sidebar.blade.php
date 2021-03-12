@@ -64,7 +64,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{URL::to('/view-input-dinas')}}" class="nav-link">
+                <a href="{{URL::to('/view-laporan-dinas')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p><span class="fa fa-eye"></span> Lihat Tabel Laporan DL</p>
                 </a>

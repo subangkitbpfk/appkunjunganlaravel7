@@ -105,10 +105,8 @@ class KunjunganController extends Controller
           if(!$insert){
             dd("gagal");
           }
-
       }//end if
       //update tabel tim_yang_dituju status = 1 (sudah diinput)
-
       $affectedRows = dtdl::where('fasyankes_id', intval($request->faskes_id[0]))->update(['status' => 1]);
       if(!$affectedRows){
         dd("gagal update status tim tujuan");
@@ -183,8 +181,8 @@ class KunjunganController extends Controller
 
     public function viewpostlaporandinas(){
       //data fasyankes yang sudah di entry
-      // $data =
-      // return view('formlaporandinas.view',compact('data'));
+      $data = dtdl::orderBy('dinas_luar_id','DESC')->where('status','1')->get();
+      return view('formlaporandinas.view',compact('data'));
     }
 
     public function formlaporandinas(){

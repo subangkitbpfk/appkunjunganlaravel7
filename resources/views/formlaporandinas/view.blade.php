@@ -2,7 +2,7 @@
 @section('content')
 <div class="row" style="background-color: white;">
     <div class="col-md-12" style="">
-       <label for="" style="font-size:1.3em;padding:2px;">Tabel Dinas</label>
+       <label for="" style="font-size:1.3em;padding:2px;">Tabel (Laporan Dinas)</label>yang sudah di input
     </div>
 </div>
 <div class="row" style="background-color: white">
@@ -11,15 +11,25 @@
            <thead>
                 <th>No</th>
                 <th>Kode Dinas</th>
-                <th>Tanggal Berangkat</th>
-                <th>Tanggal Pulang</th>
-                <th>Pegawai</th>
-                <th>Fasyankes Dituju</th>
-                <th>Status</th>
-                {{-- <th></th> --}}
+                <th>Nama Fasyankes</th>
+                <th>Lihat Berkas</th>
+                <th>Lihat Kontak</th>
+                <th></th>
+
            </thead>
            <tbody>
+             <?php $i=1;?>
+             @foreach($data as $dt)
+             <tr>
+               <td><?php echo $i++?></td>
+               <td>{{$dt->dinas_luar_id}}</td>
+               <td>{{$dt->fasyankes['nama']}}</td>
+               <td><button class="btn btn-sm btn-info"><i class="fa fa-eye"> Berkas</i></button></td>
+               <td><button class="btn btn-sm btn-info"><i class="fa fa-users"> Kontak</i></button></td>
+               <td><button class="btn btn-sm btn-warning"><i class="fa fa-info-circle"> Detail </i></button> <button class="btn btn-sm btn-danger"><i class="fa fa-trash"> Hapus </i></td>
 
+             </tr>
+             @endforeach
            </tbody>
 
        </table>
