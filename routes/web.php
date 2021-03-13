@@ -104,6 +104,11 @@ Route::group(['middleware' => ['role:admin']], function () {
   Route::get('view-laporan-dinas','kunjunganController@viewpostlaporandinas');
   Route::get('getfasyankesfromdinas/{id}','kunjunganController@getffdinas');
 
+
+  /*pengecekkan berkas dan amnil berkas */
+  route::get('ambil_berkas/{id}','KunjunganController@ambil_berkas');
+  /*end pengecekkan dan amnbil berkas */
+
   /*admin */
 
 // end dtjson

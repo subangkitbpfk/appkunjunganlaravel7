@@ -25,6 +25,18 @@ class KunjunganController extends Controller
       $datas = FasyankesDt::orderBy('nama','ASC')->get();
       return view('formkunjungan.index',compact('datas'));
     }
+    /*ambil berkas json*/
+    public function ambil_berkas($id){
+      $data = dk::where('fasyankes_id',$id)->get();
+      if(empty($data)){
+        return "kosong";
+      }
+      return $data;
+    }
+
+    public function tampil_berkas(){
+      
+    }
 
     // fasyankesdl untuk json edit data
     public function fasyankesdl($id){
@@ -190,6 +202,17 @@ class KunjunganController extends Controller
       return view('formlaporandinas.index',compact('dtinputandinas'));
     }
     public function index(){
+
+      // $dtfaskesdikunjungi =
+
+      /* jumlah fasyankes yang dikunjungi */
+
+       /* berkas yang sudah di input */
+
+       /* jumlah kontak yang sudah didapat*/
+
+      /* pegawai yang melakukan dl*/
+
       return view('kunjungan.index');
     }
 

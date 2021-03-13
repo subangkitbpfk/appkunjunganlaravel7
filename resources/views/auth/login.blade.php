@@ -1,10 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container" style="margin-top:10%">
+<div class="container" style="margin-top:10%" >
+  <!-- judul -->
+  <div class="row justify-content-center">
+    <div>
+      <div class="col-md-12" style="background-color:#dfe6e9;padding:10px 10px 0px 10px;border-radius:25px 25px 0px 0px;border-top:1px dotted">
+
+        <label for="" style="padding-bottom:0px !important"><h4 style="color:green"><i class="fa fa-lock" ></i> APP-KUN</h4><small class="text-muted" title="attribute">Aplikasi Kunjungan Fasyankes </small></label>
+      </div>
+    </div>
+  </div>
+  <!-- end row -->
     <div class="row justify-content-center" >
-        <div class="col-md-8">
-            <div class="card" style="border:1px dotted gray;background-color:#dfe6e9">
+              <div class="col-md-6">
+            <div class="card" style="border:0px dotted gray;background-color:#dfe6e9">
                 <div class="card-header"> Form {{ __('Login') }}</div>
 
                 <div class="card-body">
