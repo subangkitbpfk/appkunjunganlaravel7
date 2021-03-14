@@ -34,8 +34,20 @@ class KunjunganController extends Controller
       return $data;
     }
 
+    public function ambil_kontak($id){
+
+      $data['detailkontak'] = detailkontak::where('fasyankes_id',$id)->get();
+      $data['fasyankes'] = FasyankesDt::where('id',$id)->get();
+      if(empty($data)){
+        return "kosong";
+      }
+      return $data;
+    }
+
+
+
     public function tampil_berkas(){
-      
+
     }
 
     // fasyankesdl untuk json edit data
