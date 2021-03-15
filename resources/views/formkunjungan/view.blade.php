@@ -10,13 +10,14 @@
     <div class="modal-content">
       <div class="modal-header">
         <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
-        <h5 class="modal-title">View Edit Pegawai </h5>
+        <h5 class="modal-title">View Edit Pegawai <button class="btn btn-xs btn-success" onclick="tambahpegawai()"><i class="fa fa-plus-circle"></i> Pegawai</buttn></h5>
       </div>
       <div class="modal-body">
         <table class="table">
           <thead>
             <tr>
               <th>No</th>
+              <th>Nik</th>
               <th>Nama</th>
               <th>Aksi</th>
             </tr>
@@ -26,7 +27,11 @@
             </tbody>
           </thead>
         </table>
+        <form action="#" method="post">
+          {{csrf_field()}}
         <span id="form_ubah_data"></span>
+
+      </form>
       </div>
       <span class="badge" id="keterangan" style="float:left;padding-left:20px"></span>
       <div class="modal-footer">
@@ -139,18 +144,26 @@
                 dataType: 'json',
                     success:function(data){
 
+
                       console.log(data);
                       var dinas_id='';
                       var pegawai_id='';
 
-                      var html ='';
-                          html +='<tr>';
-                          html +='<td>No</td>';
-                          html +='<td></td>';
-                          html +='<td><btn class="btn btn-sm btn-info" onclick="pilihpegawai()"> Pilih </btn</td>';
-                          html +='</tr>';
 
+                      var html ='';
+                          for(var i=0;i<data.length;i++){
+                            var m=i+1;
+                          html +='<tr>';
+                          html +='<td>'+m+'</td>';
+                          html +='<td>'+data[i].nik+'</td>';
+                          html +='<td>'+data[i].namapegawai+'</td>';
+                          html +='<td><btn class="btn btn-sm btn-info" onclick="pilihpegawai('+data[i].dinas_luar_id+','+data[i].nip+')"> Pilih </btn</td>';
+                          html +='</tr>';
+                          $('#pegawai_ubah_data').html('');
                           $('#pegawai_ubah_data').append(html);
+                        }
+
+                          // $('#pegawai_ubah_data').append(html);
                           $('#modaleditpegawai').modal('show');
                     }
                 });
@@ -160,11 +173,20 @@
         }
     }
 
-    function pilihpegawai(){
+    function pilihpegawai(i,nip){
       alert("test");
+      console.log(i);
+      console.log(nip);
       var form='';
-      
-      $('#form_ubah_data').append("test");
+              form += '<div class="form-group"><label for="usr">Pegawai lama:</label><input type="text" class="form-control" id="usr" value="datalama" readonly></div>';
+              form += ' <div class="form-group">';
+              form +=  '<label for="sel1">Pilih Pegawai:</label>';
+              form +=   '<select class="form-control" id="sel1">';
+              form +=   '<option>1</option>';
+              form +=   '</select>';
+              form +=   '</div> ';
+              form += '<button class="btn btn-sm btn-success">Ubah data</button>';
+      $('#form_ubah_data').append(form);
     }
 
     function ubahfasyankes(id){
@@ -175,6 +197,27 @@
         }else{
             return false;
         }
+    }
+
+    function tambahpegawai(){
+      tanya = confirm("Apakah anda yakin akan Menambah Data Pegawai?");
+      if(tanya == true){
+          alert("tambah data pegawai");
+          var form='';
+                  form += ' <div class="form-group">';
+                  form +=  '<label for="sel1">Pilih Pegawai:</label>';
+                  form +=   '<select class="form-control" id="sel1">';
+                  form +=   '<option>1</option>';
+                  form +=   '</select>';
+                  form +=   '</div> ';
+                  form += '<button class="btn btn-sm btn-success">Save data</button>';
+          $('#form_ubah_data').append(form);
+
+          // window.location.replace("/fasyankesdl_json/"+id);
+      }else{
+          return false;
+      }
+
     }
 
 

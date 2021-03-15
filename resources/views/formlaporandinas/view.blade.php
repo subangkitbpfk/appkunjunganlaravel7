@@ -31,7 +31,7 @@
             </table>
         <!-- </div> -->
       </div>
-      <span class="badge" id="keterangan" style="float:left;padding-left:20px"></span>
+      <!-- <span class="badge" id="keterangan" style="float:left;padding-left:20px"></span> -->
       <div class="modal-footer">
 
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -189,7 +189,7 @@
 
 
                     // $("#kontakkunjungan").html("");
-                    $('#pegawai_ubah_data').append(namafasyankes);
+                    $('#namfasyankeskontak').append(namafasyankes);
                     $('#myModalkontak').modal('show');
 
 
