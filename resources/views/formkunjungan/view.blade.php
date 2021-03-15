@@ -1,5 +1,47 @@
 @extends('layouts.master')
 @section('content')
+<!-- modal open edit pegawai -->
+<div class="row">
+  <div class="col-md-12">
+    <div id="modaleditpegawai" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+        <h5 class="modal-title">View Edit Pegawai </h5>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Nama</th>
+              <th>Aksi</th>
+            </tr>
+
+            <tbody id="pegawai_ubah_data">
+
+            </tbody>
+          </thead>
+        </table>
+        <span id="form_ubah_data"></span>
+      </div>
+      <span class="badge" id="keterangan" style="float:left;padding-left:20px"></span>
+      <div class="modal-footer">
+
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+  </div>
+</div>
+<!-- end modal open -->
+
 <div class="row" style="background-color: white;">
     <div class="col-md-12" style="">
        <label for="" style="font-size:1.3em;padding:2px;">Tabel Dinas</label>
@@ -7,7 +49,7 @@
 </div>
 <div class="row" style="background-color: white">
     <div class="col-md-12" style="margin-left:0%;">
-       <table class="table table-striped table-bordered" id="myTable">  
+       <table class="table table-striped table-bordered" id="myTable">
            <thead>
                 <th>No</th>
                 <th>Kode Dinas</th>
@@ -90,11 +132,39 @@
     function ubahpegawai(id){
         tanya = confirm("Apakah anda yakin akan mengubah Data Pegawai ?");
         if(tanya == true){
-            //getdata
-            window.open("/fasyankesdl_json/"+id, '_blank');
+            // modal open
+            $.ajax({
+                url: "{{ URL('edit_pegawai') }}" + '/' +id,
+                type: 'GET',
+                dataType: 'json',
+                    success:function(data){
+
+                      console.log(data);
+                      var dinas_id='';
+                      var pegawai_id='';
+
+                      var html ='';
+                          html +='<tr>';
+                          html +='<td>No</td>';
+                          html +='<td></td>';
+                          html +='<td><btn class="btn btn-sm btn-info" onclick="pilihpegawai()"> Pilih </btn</td>';
+                          html +='</tr>';
+
+                          $('#pegawai_ubah_data').append(html);
+                          $('#modaleditpegawai').modal('show');
+                    }
+                });
+            // window.open("/fasyankesdl_json/"+id, '_blank');
         }else{
             return false;
         }
+    }
+
+    function pilihpegawai(){
+      alert("test");
+      var form='';
+      
+      $('#form_ubah_data').append("test");
     }
 
     function ubahfasyankes(id){
@@ -107,6 +177,6 @@
         }
     }
 
-    
+
 </script>
 @stop

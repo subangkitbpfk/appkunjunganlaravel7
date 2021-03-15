@@ -168,6 +168,7 @@
           dataType: 'json',
               success:function(data){
               $("#kontakkunjungan").html("");
+              $('#namfasyankeskontak').html("");
               var html ='';
               var namafasyankes = "Nama Fasyankes :  "+data['fasyankes'][0]['nama'];
               console.log(data);
@@ -188,7 +189,7 @@
 
 
                     // $("#kontakkunjungan").html("");
-                    $('#namfasyankeskontak').append(namafasyankes);
+                    $('#pegawai_ubah_data').append(namafasyankes);
                     $('#myModalkontak').modal('show');
 
 

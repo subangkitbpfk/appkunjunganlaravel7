@@ -34,6 +34,18 @@ class KunjunganController extends Controller
       return $data;
     }
 
+    /*edit pegawai*/
+    public function edit_pegawai($id){
+      $data = dptl::where('dinas_luar_id',$id)->get();
+      $map = $data->map(function($item,$i){
+        $item->namapegawai = $item->pegawai['nama'];
+        $item->nik = $item->pegawai['nik'];
+        return $item;
+      });
+      return $map;
+
+    }
+
     public function ambil_kontak($id){
 
       $data['detailkontak'] = detailkontak::where('fasyankes_id',$id)->get();
