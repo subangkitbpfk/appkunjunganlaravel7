@@ -157,7 +157,7 @@
                           html +='<td>'+m+'</td>';
                           html +='<td>'+data[i].nik+'</td>';
                           html +='<td>'+data[i].namapegawai+'</td>';
-                          html +='<td><btn class="btn btn-sm btn-info" onclick="pilihpegawai('+data[i].dinas_luar_id+','+data[i].nip+')"> Pilih </btn</td>';
+                          html +='<td><btn class="btn btn-sm btn-info" id="pilihupdate" onclick="pilihpegawai('+data[i].dinas_luar_id+','+data[i].nip+')"> Pilih </btn</td>';
                           html +='</tr>';
                           $('#pegawai_ubah_data').html('');
                           $('#pegawai_ubah_data').append(html);
@@ -174,19 +174,37 @@
     }
 
     function pilihpegawai(i,nip){
-      alert("test");
-      console.log(i);
-      console.log(nip);
+      var fasyankes = i;
+      var pin = nip;
       var form='';
-              form += '<div class="form-group"><label for="usr">Pegawai lama:</label><input type="text" class="form-control" id="usr" value="datalama" readonly></div>';
-              form += ' <div class="form-group">';
-              form +=  '<label for="sel1">Pilih Pegawai:</label>';
-              form +=   '<select class="form-control" id="sel1">';
-              form +=   '<option>1</option>';
-              form +=   '</select>';
-              form +=   '</div> ';
-              form += '<button class="btn btn-sm btn-success">Ubah data</button>';
-      $('#form_ubah_data').append(form);
+      // alert("test");
+      $('#form_ubah_data').html('');
+      $.ajax({
+        url: "{{ URL('get-pegawai-selected') }}"+'/'+fasyankes+'/get/'+pin,
+        type: 'GET',
+        dataType: 'json',
+          success:function(data){
+            // console.log(data);
+            // pegawai
+                    form += '<div class="form-group"><label for="usr">Pegawai lama:</label><input type="text" class="form-control" id="usr" value="'+data.pegawai.nama+'" readonly></div>';
+                    form += ' <div class="form-group">';
+                    form +=  '<label for="sel1">Pilih diganti Pegawai:</label>';
+                    form +=   '<select class="form-control" id="sel1">';
+                    for(var i=0;i<data['allpegawai'].length;i++){
+                    form +=   '<option>'+data['allpegawai'][i]['nama']+'</option>';
+                    }
+                    form +=   '</select>';
+                    form +=   '</div> ';
+                    form += '<button class="btn btn-sm btn-success">Ubah data</button>';
+            console.log("data masuk");
+            $('#form_ubah_data').html('');
+            $('#form_ubah_data').append(form);
+
+            // end pegawai selected
+          }
+
+      });
+
     }
 
     function ubahfasyankes(id){
@@ -202,16 +220,35 @@
     function tambahpegawai(){
       tanya = confirm("Apakah anda yakin akan Menambah Data Pegawai?");
       if(tanya == true){
+        $('#form_ubah_data').html('');
           alert("tambah data pegawai");
-          var form='';
-                  form += ' <div class="form-group">';
-                  form +=  '<label for="sel1">Pilih Pegawai:</label>';
-                  form +=   '<select class="form-control" id="sel1">';
-                  form +=   '<option>1</option>';
-                  form +=   '</select>';
-                  form +=   '</div> ';
-                  form += '<button class="btn btn-sm btn-success">Save data</button>';
-          $('#form_ubah_data').append(form);
+          // document.getElementById("pilihupdate").disabled = true;
+          // ajax search pegawai && view
+          $.ajax({
+            url: "{{ URL('get-pegawai') }}",
+            type: 'GET',
+            dataType: 'json',
+              success:function(data){
+                console.log(data);
+                console.log(data[0]['nama']);
+                var form='';
+
+                        form += ' <div class="form-group">';
+                        form +=  '<label for="sel1">Pilih Pegawai:</label>';
+                        form +=   '<select class="form-control" id="sel1">';
+                        for(var i =0;i<data.length;i++){
+                        form +=   '<option value="'+data[i]['id']+'">'+data[i]['nama']+'</option>';
+                        }
+                        form +=   '</select>';
+
+                        form +=   '</div> ';
+                        form += '<button class="btn btn-sm btn-success">Save data</button>';
+                        $('#form_ubah_data').append(form);
+
+                        //btn pilih disable
+              }
+
+          });
 
           // window.location.replace("/fasyankesdl_json/"+id);
       }else{

@@ -104,6 +104,9 @@ Route::group(['middleware' => ['role:admin']], function () {
   Route::get('view-laporan-dinas','kunjunganController@viewpostlaporandinas');
   Route::get('getfasyankesfromdinas/{id}','kunjunganController@getffdinas');
 
+  /* untuk edit data pada tabel pegawai view-input-dinas*/
+  Route::get('get-pegawai-selected/{fasyankes}/get/{nip}','kunjunganController@getnipselected');
+
 
   /*pengecekkan berkas dan amnil berkas */
   route::get('ambil_berkas/{id}','KunjunganController@ambil_berkas');

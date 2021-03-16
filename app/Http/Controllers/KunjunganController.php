@@ -301,6 +301,14 @@ class KunjunganController extends Controller
       $data = Pegawai::all();
       return response()->json($data);
     }
+    //get nip selected fasyankes
+    public function getnipselected($dinas_luar_id,$nip){
+      $data = dptl::where('dinas_luar_id',$dinas_luar_id)->where('nip',$nip)->first();
+      $dtarray['data'] = $data;
+      $dtarray['pegawai'] = $dtpegawai = $data->pegawai;
+      $dtarray['allpegawai'] = Pegawai::orderBy('nama','ASC')->get();
+      return response()->json($dtarray);
+    }
 
     public function lihatdetaildeskripsi($id){
       $data = HeaderKunjungan::finOrFail($id);
