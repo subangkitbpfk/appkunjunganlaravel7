@@ -136,7 +136,11 @@
     })
     function ubahpegawai(id){
         tanya = confirm("Apakah anda yakin akan mengubah Data Pegawai ?");
+        // clear INPUTAN
+
+
         if(tanya == true){
+          $('#form_ubah_data').html('');
             // modal open
             $.ajax({
                 url: "{{ URL('edit_pegawai') }}" + '/' +id,
@@ -186,12 +190,12 @@
           success:function(data){
             // console.log(data);
             // pegawai
-                    form += '<div class="form-group"><label for="usr">Pegawai lama:</label><input type="text" class="form-control" id="usr" value="'+data.pegawai.nama+'" readonly></div>';
+                    form += '<div class="form-group"><label for="usr">Pegawai lama:</label><input type="hidden" name="pin" value="'+data.pegawai.nip+'"/><input type="text" class="form-control" id="usr" value="'+data.pegawai.nama+'" readonly></div>';
                     form += ' <div class="form-group">';
                     form +=  '<label for="sel1">Pilih diganti Pegawai:</label>';
                     form +=   '<select class="form-control" id="sel1">';
                     for(var i=0;i<data['allpegawai'].length;i++){
-                    form +=   '<option>'+data['allpegawai'][i]['nama']+'</option>';
+                    form +=   '<option value="'+data['allpegawai'][i]['id']+'">'+data['allpegawai'][i]['nama']+'</option>';
                     }
                     form +=   '</select>';
                     form +=   '</div> ';
