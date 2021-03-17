@@ -21,6 +21,10 @@ use App\Detaildinasluarhasil as ddlh;
 
 class KunjunganController extends Controller
 {
+    public function fasyankesdt_json(){
+      $data = FasyankesDt::orderBy('nama','ASC')->get();
+      return $data;
+    }
     public function forminputdinas(){
       $datas = FasyankesDt::orderBy('nama','ASC')->get();
       return view('formkunjungan.index',compact('datas'));
@@ -298,7 +302,7 @@ class KunjunganController extends Controller
     }
     // get pegawai
     public function getpegawai(){
-      $data = Pegawai::all();
+      $data = Pegawai::orderBy('nama','ASC')->get();
       return response()->json($data);
     }
     //get nip selected fasyankes
@@ -309,6 +313,21 @@ class KunjunganController extends Controller
       $dtarray['allpegawai'] = Pegawai::orderBy('nama','ASC')->get();
       return response()->json($dtarray);
     }
+
+    public function getidfasyankes($dinas_luar_id,$id){
+        $dt = dtdl::where('dinas_luar_id',$dinas_luar_id)->where('fasyankes_id',$id)->first();
+        return $dt;
+    }
+
+    public function gettimtujuan($id){
+      $data = dtdl::where('dinas_luar_id',$id)->get();
+      $map = $data->map(function($item,$i){
+              $item->namafasyankes = $item->fasyankes;
+              return $item;
+      });
+      return response()->json($map);
+    }
+
 
     public function lihatdetaildeskripsi($id){
       $data = HeaderKunjungan::finOrFail($id);
