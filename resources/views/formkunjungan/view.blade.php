@@ -76,7 +76,7 @@
         </table>
         <form action="#" method="post">
           {{csrf_field()}}
-        <span id="form_ubah_data"></span>
+        <span id="fasyankes_ubah_data"></span>
 
       </form>
       </div>
@@ -311,15 +311,42 @@
     function pilihfasyankes(dinas_luar_id,fasyankes_id){
       var dli = dinas_luar_id;
       var fi = fasyankes_id;
-      tanya = confirm("Apakah anda yakin akan Menambah Data Pegawai?");
+      var form='';
+      tanya = confirm("Apakah anda yakin akan merubah data fasyankes ini?");
       if(tanya == true){
-        alert("test");
+        // alert("test");
         $.ajax({
           url: "{{ URL('get-fasyankes-selected') }}"+'/'+dli+'/get/'+fi,
           type: 'GET',
           dataType: 'json',
             success:function(data){
               console.log(data);
+              var status = data.data.status; //status apakah fasyankes sudah di buatkan laporan inputan
+              // console.log("status data"+status);
+              if(status == 1){
+                alert("Data sudah ada dilaporan sebaiknya di hapus dulu dilaporannya!");
+                return false;
+              }else{
+                console.log("proses menampilkan data yang dipilih");
+                // form ubah data
+                form += '<div class="form-group"><label for="usr">Fasyankes lama :</label><input type="hidden" name="fasyankes_id" value="'+data.data.fasyankes_id+'"/><input type="text" class="form-control" id="usr" value="'+data.data.fasyankes.nama+'" readonly></div>';
+                form += ' <div class="form-group">';
+                form +=  '<label for="sel1">Pilih diganti Pegawai:</label>';
+                form +=   '<select class="form-control" id="sel1">';
+                for(var i=0;i<data['allfasyankes'].length;i++){
+                  form +=   '<option value="'+data['allfasyankes'][i]['id']+'">'+data['allfasyankes'][i]['nama']+'</option>';
+                }
+                form +=   '</select>';
+                form +=   '</div> ';
+                form += '<button class="btn btn-sm btn-success">Ubah data</button>';
+                // end form ubah data
+                $('#fasyankes_ubah_data').html('');
+                $('#fasyankes_ubah_data').append(form);
+              }
+
+
+
+
 
             }
         });

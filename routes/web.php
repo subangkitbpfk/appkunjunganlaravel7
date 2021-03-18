@@ -106,6 +106,9 @@ Route::group(['middleware' => ['role:admin']], function () {
 
   Route::get('timtujuan/{id}','kunjunganController@gettimtujuan');
 
+  /*laporan*/
+   Route::get('laporan','kunjunganController@laporanindex');
+
   /* untuk edit data pada tabel pegawai view-input-dinas*/
   Route::get('get-pegawai-selected/{fasyankes}/get/{nip}','kunjunganController@getnipselected');
   Route::get('get-fasyankes-selected/{fasyankes}/get/{nip}','kunjunganController@getidfasyankes');

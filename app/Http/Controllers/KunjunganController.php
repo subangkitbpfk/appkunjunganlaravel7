@@ -21,6 +21,9 @@ use App\Detaildinasluarhasil as ddlh;
 
 class KunjunganController extends Controller
 {
+    public function laporanindex(){
+      return view('laporan.index');
+    }
     public function fasyankesdt_json(){
       $data = FasyankesDt::orderBy('nama','ASC')->get();
       return $data;
@@ -316,7 +319,10 @@ class KunjunganController extends Controller
 
     public function getidfasyankes($dinas_luar_id,$id){
         $dt = dtdl::where('dinas_luar_id',$dinas_luar_id)->where('fasyankes_id',$id)->first();
-        return $dt;
+        $data['data'] = $dt;
+        $data['fasyankes'] = $dt->fasyankes;
+        $data['allfasyankes'] = FasyankesDt::orderBy('nama','ASC')->get();
+        return response()->json($data);
     }
 
     public function gettimtujuan($id){
