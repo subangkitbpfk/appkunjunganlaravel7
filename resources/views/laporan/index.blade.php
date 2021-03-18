@@ -94,12 +94,42 @@ function cetaklaporanid(){
   var id = $("#kodeheader option:selected").val();
   // var id = $("#kodeheader option:selected").attr("attrstatus");
   alert(id);
+  var arrystatus = [];
+  var arrystatusok = [];
   $.ajax({
     url: "{{ URL('laporan') }}" + '/' +id,
     type: 'GET',
     dataType: 'json',
         success:function(data){
           console.log(data);
+          console.log(data.cekstatus.length);
+          // for untuk pengecekkan tombol cetak
+          for(var i=0;i<data.cekstatus.length;i++){
+
+            if(data.cekstatus[i].status == 0){//jika status 0 maka masukkan kesini dan tampilkan
+              //mohon maaf data harus dilengkapi agar bisa di cetak
+              // console.log("data masih ada yang kosong");
+              arrystatus.push(data.cekstatus[i].namafasyankes.nama);
+              console.log(arrystatus);
+              // alert(arrystatus);
+            }else if(data.cekstatus[i].status == 1){
+              //data sudah lengkap
+              // console.log("data lengkap bisa dicetak");
+              arrystatusok.push(data.cekstatus[i].namafasyankes.nama);
+
+            }
+
+            if(arrystatus.length > 0){
+              console.log("tidak boleh dicetak");
+            }else{
+              console.log("boleh dicetak");
+            }
+
+
+
+          }
+          //end for cetak
+
         }
   });
 

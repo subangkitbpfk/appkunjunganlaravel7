@@ -30,11 +30,12 @@ class KunjunganController extends Controller
       $data['data'] = $dtlaporan;
       $data['fasyankes'] = dtdl::where('dinas_luar_id',$id)->get();
       $cekstatus = collect($data['fasyankes'])->map(function($item,$i){
-                    $item->namafasyankes = FasyankesDt::where('id',$item->fasyankes_id)->first();//ambil nama untuk ditampilkan 
+                    $item->namafasyankes = FasyankesDt::where('id',$item->fasyankes_id)->first();//ambil nama untuk ditampilkan
                     return $item;
       });
+      $data['cekstatus'] = $cekstatus;
       // $data['pegawai'] = dptl::where('dinas_luar_id')->get();
-      return response()->json($cekstatus);
+      return response()->json($data);
     }
 
     public function fasyankesdt_json(){
