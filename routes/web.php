@@ -108,6 +108,9 @@ Route::group(['middleware' => ['role:admin']], function () {
 
   /*laporan*/
    Route::get('laporan','kunjunganController@laporanindex');
+   /*cek laporan ke 1*/
+   Route::get('laporan/{id}','kunjunganController@cetaklaporanuser');
+   
 
   /* untuk edit data pada tabel pegawai view-input-dinas*/
   Route::get('get-pegawai-selected/{fasyankes}/get/{nip}','kunjunganController@getnipselected');

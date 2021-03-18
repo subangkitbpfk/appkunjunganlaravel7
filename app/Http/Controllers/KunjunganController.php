@@ -21,9 +21,22 @@ use App\Detaildinasluarhasil as ddlh;
 
 class KunjunganController extends Controller
 {
-    public function laporanindex(){
-      return view('laporan.index');
+    public function laporanindex(){//laporan
+      $dtheader = hd::orderBy('id','DESC')->get();
+      return view('laporan.index',compact('dtheader'));
     }
+    public function cetaklaporanuser($id){//cetak laporan user
+      $dtlaporan = hd::where('id',$id)->first();
+      $data['data'] = $dtlaporan;
+      $data['fasyankes'] = dtdl::where('dinas_luar_id',$id)->get();
+      $cekstatus = collect($data['fasyankes'])->map(function($item,$i){
+                    $item->namafasyankes = FasyankesDt::where('id',$item->fasyankes_id)->first();//ambil nama untuk ditampilkan 
+                    return $item;
+      });
+      // $data['pegawai'] = dptl::where('dinas_luar_id')->get();
+      return response()->json($cekstatus);
+    }
+
     public function fasyankesdt_json(){
       $data = FasyankesDt::orderBy('nama','ASC')->get();
       return $data;

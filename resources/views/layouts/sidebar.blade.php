@@ -70,7 +70,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{URL::to('/view-input-dinas')}}" class="nav-link">
+                <a href="{{URL::to('/laporan')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p><span class="fa fa-print"></span> Cetak laporan</p>
                 </a>
