@@ -35,6 +35,9 @@
             </tbody>
           </thead>
         </table>
+        <span id="sts"></span>
+        <span id="belumdiinput">
+        </span>
         <form action="#" method="post">
           {{csrf_field()}}
 
@@ -91,11 +94,14 @@ function laporankesatu(){
 }
 
 function cetaklaporanid(){
+  $('#belumdiinput').html('');
+  $('#sts').html('');
   var id = $("#kodeheader option:selected").val();
   // var id = $("#kodeheader option:selected").attr("attrstatus");
-  alert(id);
+  // alert(id);
   var arrystatus = [];
   var arrystatusok = [];
+  var tabel = '';
   $.ajax({
     url: "{{ URL('laporan') }}" + '/' +id,
     type: 'GET',
@@ -119,16 +125,28 @@ function cetaklaporanid(){
 
             }
 
-            if(arrystatus.length > 0){
-              console.log("tidak boleh dicetak");
-            }else{
-              console.log("boleh dicetak");
-            }
+
 
 
 
           }
           //end for cetak
+
+          // validasi
+          if(arrystatus.length > 0){
+            $('#sts').append('<b style="color:gray">Lengkapi data dibawah ini</b>');
+            console.log("tidak boleh dicetak");
+            for(var a=0;a<arrystatus.length;a++){
+              tabel = '<p style="background-color:#d63031;color:white;padding:5px">'+arrystatus[a]+'</p>'
+              $('#belumdiinput').append(tabel);
+            }
+            alert("Mohon maaf laporan tidak bisa dicetak, dikarenakan data tidak lengkap!");
+            //belumdiinput
+          }else{
+            console.log("boleh dicetak");
+            window.open("http://www.someone.com/","_blank");
+          }
+          //end validasi
 
         }
   });

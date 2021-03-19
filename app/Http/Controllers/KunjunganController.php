@@ -38,6 +38,12 @@ class KunjunganController extends Controller
       return response()->json($data);
     }
 
+    public function laporanrelease($id){
+      dd("test");
+    }
+
+
+
     public function fasyankesdt_json(){
       $data = FasyankesDt::orderBy('nama','ASC')->get();
       return $data;
