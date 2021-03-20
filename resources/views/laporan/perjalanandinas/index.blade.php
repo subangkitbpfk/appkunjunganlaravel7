@@ -68,7 +68,20 @@
         <td>- Petugas yang ditemui :</td>
       </tr>
       <tr>
-        <td>{Petugas yang ditemui}</td>
+
+        <td>
+          @foreach($dt['kontakkunjungan'] as $kontaks)
+            @if(isset($kontaks->kontak))
+              @foreach($kontaks->kontak as $dtkontak)
+                @if($dtdetail->fasyankes_id == $dtkontak->fasyankes_id)
+                    {{$dtkontak->nama_kontak}}
+                @endif
+              @endforeach
+            @endif
+          @endforeach
+
+        </td>
+
       </tr>
 
       <tr>

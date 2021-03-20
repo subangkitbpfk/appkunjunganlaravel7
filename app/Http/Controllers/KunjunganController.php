@@ -42,7 +42,14 @@ class KunjunganController extends Controller
       $data = hd::where('id',$request->dinas_luar_id)->first();
       $dt['data'] = $data;
       $dt['fasyankes'] = dtdl::where('dinas_luar_id',$request->dinas_luar_id)->get();
+      $mapkontak = collect($dt['fasyankes'])->map(function($item,$i){
+                      $item->kontak = detailkontak::where('dinas_luar_id',$item->dinas_luar_id)->where('fasyankes_id',$item->fasyankes_id)->get();
+                      return $item;
+      });
+      // dd($mapkontak);
       $dt['pegawai'] = dptl::where('dinas_luar_id',$request->dinas_luar_id)->get();
+      $dt['kontakkunjungan'] = $mapkontak;
+      // dd($dt);
 
       return view('laporan.perjalanandinas.index',compact('dt'));
       // dd($dt);
