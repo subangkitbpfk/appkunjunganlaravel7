@@ -38,8 +38,15 @@ class KunjunganController extends Controller
       return response()->json($data);
     }
 
-    public function laporanrelease($id){
-      dd("test");
+    public function laporanrelease(Request $request){
+      $data = hd::where('id',$request->dinas_luar_id)->first();
+      $dt['data'] = $data;
+      $dt['fasyankes'] = dtdl::where('dinas_luar_id',$request->dinas_luar_id)->get();
+      $dt['pegawai'] = dptl::where('dinas_luar_id',$request->dinas_luar_id)->get();
+
+      return view('laporan.perjalanandinas.index',compact('dt'));
+      // dd($dt);
+      // dd($request->all());
     }
 
 

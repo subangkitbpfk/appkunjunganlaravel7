@@ -27,7 +27,7 @@
                 </select>
 
               </th>
-              <th><button class="btn btn-sm btn-default" style="background-color:#ff7675;color:white;padding:5px" onclick="cetaklaporanid()">Cetak Laporan Dinas</button></th>
+              <th><button class="btn btn-sm btn-default" style="background-color:#ff7675;color:white;padding:5px" onclick="cetaklaporanid()">Cek Laporan Dinas</button></th>
             </tr>
 
             <tbody>
@@ -38,8 +38,9 @@
         <span id="sts"></span>
         <span id="belumdiinput">
         </span>
-        <form action="#" method="post">
+        <form action="{{url('/laporanrelease')}}" method="post">
           {{csrf_field()}}
+          <span id="formpost"></span>
 
 
       </form>
@@ -96,6 +97,8 @@ function laporankesatu(){
 function cetaklaporanid(){
   $('#belumdiinput').html('');
   $('#sts').html('');
+  $('#formpost').html('');
+  var form = '';
   var id = $("#kodeheader option:selected").val();
   // var id = $("#kodeheader option:selected").attr("attrstatus");
   // alert(id);
@@ -144,7 +147,18 @@ function cetaklaporanid(){
             //belumdiinput
           }else{
             console.log("boleh dicetak");
-            window.open("http://www.someone.com/","_blank");
+
+            // console.log(data)
+            var formpost ='';
+              formpost +='<input type="text" value="'+data.data.id+'" name="dinas_luar_id" readonly style="background-color:gray;color:white"/>';
+              formpost +=' <button type="submit" class="btn btn-sm btn-info"> <i class="fa fa-print"></i> Silahkan dicetak</button> ';
+              $('#formpost').append(formpost);
+
+
+
+            // var id = 1;
+            // window.open("/laporan/"+id,"_blank");
+            // window.location = "/laporan/" + id
           }
           //end validasi
 
