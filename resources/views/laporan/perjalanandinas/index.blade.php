@@ -2,12 +2,13 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Laporan</title>
   </head>
   <body>
-    <center><h3>LAPORAN PERJALANAN DINAS</h3></center>
+    <center><h3>LAPORAN PERJALANAN DINAS</h3></center><br>
+    <?php $abjad = array('A','B','C','D','E','F','G','H','I','J'); ?>
 
-    <table style="border:0px solid black;margin:auto;width:60%">
+    <table style="border:0px solid black;margin:auto;width:80%">
       <tr>
         <td>1.</td>
         <td>Nama yang memberangkatkan</td>
@@ -16,9 +17,9 @@
       </tr>
 
       <tr>
-        <td>2.</td>
-        <td>Tempat yang dikunjungi</td>
-        <td>:</td>
+        <td style="vertical-align:top">2.</td>
+        <td style="vertical-align:top">Tempat yang dikunjungi</td>
+        <td style="vertical-align:top">:</td>
         <td>
           @foreach($dt['fasyankes'] as $data)
             - {{$data->fasyankes->nama}}<br>
@@ -34,9 +35,9 @@
       </tr>
 
       <tr>
-        <td>4.</td>
-        <td>Nama yang melakukan perjalanan dinas</td>
-        <td>:</td>
+        <td style="vertical-align:top">4.</td>
+        <td style="vertical-align:top">Nama yang melakukan perjalanan dinas</td>
+        <td style="vertical-align:top">:</td>
         <td>
           @foreach($dt['pegawai'] as $data)
             - {{$data->pegawai->nama}}<br>
@@ -57,11 +58,12 @@
         <td></td>
       </tr>
     </table>
+    <?php $no=0?>
 
-    <table style="border:0px solid black;margin:auto;width:60%">
+    <table style="border:0px solid black;margin:auto;width:80%">
       @foreach($dt['fasyankes'] as $dtdetail)
       <tr>
-        <td><b>A. Nama Fasyankes : </b>{{$dtdetail->fasyankes->nama}}</td>
+        <td><b><?php $no = $no + 1;echo $abjad[$no-1]?>. Nama Fasyankes : </b>{{$dtdetail->fasyankes->nama}}</td>
       </tr>
 
       <tr>
@@ -117,7 +119,7 @@
       @endforeach
     </table>
 
-    <table style="border:0px solid black;margin:auto;width:60%">
+    <table style="border:0px solid black;margin:auto;width:80%;padding:10px 0px 3px 0px">
       <tr>
         <td><b>Petugas Dinas Luar :</b></td>
         <td></td>
@@ -127,7 +129,7 @@
       <?php $i=1?>
       @foreach($dt['pegawai'] as $pg)
       <tr>
-        <td>{{$i++}}. {{$pg->pegawai->nama}}</td>
+        <td style="padding-bottom:25px">{{$i++}}. {{$pg->pegawai->nama}}</td>
         <td>.....................</td>
         <td></td>
         <td></td>
