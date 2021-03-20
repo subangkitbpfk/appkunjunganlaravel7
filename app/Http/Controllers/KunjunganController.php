@@ -50,6 +50,11 @@ class KunjunganController extends Controller
       // dd($mapkontak);
       $dt['pegawai'] = dptl::where('dinas_luar_id',$request->dinas_luar_id)->get();
       $dt['kontakkunjungan'] = $mapkontak;
+      $berangkat = $this->dateIdn($data->tanggal_berangkat);
+      $pulang = $this->dateIdn($data->tanggal_pulang);
+
+      $dt['tanggal'] = array('berangkat' => $berangkat, 'pulang' => $pulang);
+
       // dd($dt);
 
       return view('laporan.perjalanandinas.index',compact('dt'));

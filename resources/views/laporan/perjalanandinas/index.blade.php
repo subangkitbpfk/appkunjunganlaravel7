@@ -31,7 +31,7 @@
         <td>3.</td>
         <td>Waktu Perjalanan Dinas</td>
         <td>:</td>
-        <td>{{$dt['data']->tanggal_berangkat}} s/d {{$dt['data']->tanggal_pulang}}</td>
+        <td>{{$dt['tanggal']['berangkat']}} s/d {{$dt['tanggal']['pulang']}}</td>
       </tr>
 
       <tr>
