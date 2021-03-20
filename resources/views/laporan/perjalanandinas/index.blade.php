@@ -7,7 +7,7 @@
   <body>
     <center><h3>LAPORAN PERJALANAN DINAS</h3></center>
 
-    <table style="border:1px solid black;margin:auto;width:60%">
+    <table style="border:0px solid black;margin:auto;width:60%">
       <tr>
         <td>1.</td>
         <td>Nama yang memberangkatkan</td>
@@ -58,40 +58,84 @@
       </tr>
     </table>
 
-    <table style="border:1px solid black;margin:auto;width:60%">
+    <table style="border:0px solid black;margin:auto;width:60%">
       @foreach($dt['fasyankes'] as $dtdetail)
       <tr>
-        <td>A. Nama Fasyankes : {{$dtdetail->fasyankes->nama}}</td>
+        <td><b>A. Nama Fasyankes : </b>{{$dtdetail->fasyankes->nama}}</td>
       </tr>
 
       <tr>
-        <td>- Petugas yang ditemui :</td>
+        <td>- <b>Petugas yang ditemui :</b></td>
       </tr>
       <tr>
 
-        <td>
+        <td><table >
+          <!-- <tr>
+            <td style="border-right:1px solid gray;padding:0px 3px 0px 3px">Nama</td>
+            <td style="border-right:1px solid gray;padding:0px 3px 0px 3px;text-align:center">Jabatan / Devisi</td>
+            <td style="border-right:1px solid gray;padding:0px 3px 0px 3px;text-align:center">Kontak satu</td>
+            <td style="border-right:1px solid gray;padding:0px 3px 0px 3px;text-align:center">Kontak dua</td>
+          <tr> -->
           @foreach($dt['kontakkunjungan'] as $kontaks)
             @if(isset($kontaks->kontak))
               @foreach($kontaks->kontak as $dtkontak)
                 @if($dtdetail->fasyankes_id == $dtkontak->fasyankes_id)
-                    {{$dtkontak->nama_kontak}}
+
+                      <tr>
+                        <td style="border-right:1px solid gray;padding:0px 3px 0px 3px">{{$dtkontak->nama_kontak}}</td>
+                        <td style="border-right:1px solid gray;padding:0px 3px 0px 3px;text-align:center">{{$dtkontak->jabatan_kontak}}</td>
+                        <td style="border-right:1px solid gray;padding:0px 3px 0px 3px;text-align:center">{{$dtkontak->kontak_satu}}</td>
+                        <td style="border-right:1px solid gray;padding:0px 3px 0px 3px;text-align:center">{{$dtkontak->kontak_dua}}</td>
+                      <tr>
+
+                      <!-- -  -  - <br> -->
                 @endif
               @endforeach
             @endif
           @endforeach
+            </table>
 
         </td>
 
       </tr>
 
       <tr>
-        <td>- Hasil Kunjungan : </td>
+        <td><b>Hasil Kunjungan : </b></td>
       </tr>
       <tr>
-        <td>{Hasil Kunjungan}</td>
+        <td>
+          @foreach($dt['kontakkunjungan'] as $kontaks)
+            @if(isset($kontaks->hasilkunjungan))
+              @if($dtdetail->fasyankes_id == $dtkontak->fasyankes_id)
+              {{$kontaks->hasilkunjungan->hasil_dinas}}
+              @endif
+
+            @endif
+          @endforeach
+        </td>
       </tr>
       @endforeach
     </table>
+
+    <table style="border:0px solid black;margin:auto;width:60%">
+      <tr>
+        <td><b>Petugas Dinas Luar :</b></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <?php $i=1?>
+      @foreach($dt['pegawai'] as $pg)
+      <tr>
+        <td>{{$i++}}. {{$pg->pegawai->nama}}</td>
+        <td>.....................</td>
+        <td></td>
+        <td></td>
+      </tr>
+      @endforeach
+
+
+    <table>
 
 
 

@@ -44,6 +44,7 @@ class KunjunganController extends Controller
       $dt['fasyankes'] = dtdl::where('dinas_luar_id',$request->dinas_luar_id)->get();
       $mapkontak = collect($dt['fasyankes'])->map(function($item,$i){
                       $item->kontak = detailkontak::where('dinas_luar_id',$item->dinas_luar_id)->where('fasyankes_id',$item->fasyankes_id)->get();
+                      $item->hasilkunjungan = ddlh::where('dinas_luar_id',$item->dinas_luar_id)->where('fasyankes_id',$item->fasyankes_id)->first();
                       return $item;
       });
       // dd($mapkontak);
