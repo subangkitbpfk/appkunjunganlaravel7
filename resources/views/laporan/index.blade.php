@@ -1,6 +1,16 @@
 @extends('layouts.master')
 @section('content')
 
+
+<!-- modal  -->
+<div class="">
+
+</div>
+<!-- modal rekap fasyankes -->
+
+
+
+
 <!-- modal laporan perjalanan dinas -->
 <!-- modal open edit pegawai -->
 <div class="row">
@@ -12,7 +22,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
-        <h5 class="modal-title">Isian Laporan Perjalanan Dinas</h5>
+        <h5 class="modal-title">Cek Laporan Perjalanan Dinas</h5>
       </div>
       <div class="modal-body">
         <table class="table">
@@ -38,7 +48,7 @@
         <span id="sts"></span>
         <span id="belumdiinput">
         </span>
-        <form action="{{url('/laporanrelease')}}" method="post">
+        <form action="{{url('/laporanrelease')}}" method="post" target="_blank">
           {{csrf_field()}}
           <span id="formpost"></span>
 

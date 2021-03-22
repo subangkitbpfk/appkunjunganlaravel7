@@ -15,12 +15,22 @@
 <div class="row">
   <div class="col col-md-12">
     @if (\Session::has('success'))
-    <div class="alert alert-info" style="margin-left:5%;background-color:#81ecec">
+    <div class="alert alert-info" style="margin-left:5%;width:50%">
     <ul>
        <li style="list-style-type: none;"><b> {!! \Session::get('success') !!}</b></li>
     </ul>
     </div>
     @endif
+
+    <!-- error -->
+    @if (\Session::has('gagal'))
+    <div class="alert alert-danger" style="margin-left:5%;width:50%">
+    <ul>
+       <li style="list-style-type: none;"><b> {!! \Session::get('gagal') !!}</b></li>
+    </ul>
+    </div>
+    @endif
+    <!-- end error -->
   </div>
 </div>
 

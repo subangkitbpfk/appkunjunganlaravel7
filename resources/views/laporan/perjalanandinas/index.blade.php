@@ -142,4 +142,12 @@
 
 
   </body>
+  <script type="text/javascript">
+  (function() {
+    window.print()
+   // your page initialization code here
+   // the DOM will be available here
+
+  })();
+  </script>
 </html>

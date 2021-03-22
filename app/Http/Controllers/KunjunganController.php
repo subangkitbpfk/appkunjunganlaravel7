@@ -126,7 +126,19 @@ class KunjunganController extends Controller
 
     public function postlaporandinas(Request $request){
       // dd($request->all());
-      // dd(intval($request->faskes_id[0]));
+
+      /*
+      $cek validasi apakah sudah ada atau belom ,jika belum lanjutin
+      cek pada tabel tujuan_cek statusnya apakah 1 jika 0
+      */
+      $cek  = dtdl::where('dinas_luar_id',$request->kodedinasluar)->where('fasyankes_id',$request->faskes_id[0])->first();
+      if($cek->status == 1){
+        return redirect()->back()->with('gagal', "Data sudah ada!");
+        // return redirect()->back()->with('success', "Data sudah di masukkan dengan sukses!");
+        dd("data sudah pernah dimasukkan");
+      }
+      dd("teest");
+
       /* insert hasil dinas luar */
       $insertddlh  = ddlh::create([
                         'dinas_luar_id' =>$request->kodedinasluar,
