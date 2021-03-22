@@ -21,6 +21,53 @@ use App\Detaildinasluarhasil as ddlh;
 
 class KunjunganController extends Controller
 {
+    public function laporanindex(){//laporan
+      $dtheader = hd::orderBy('id','DESC')->get();
+      return view('laporan.index',compact('dtheader'));
+    }
+    public function cetaklaporanuser($id){//cetak laporan user
+      $dtlaporan = hd::where('id',$id)->first();
+      $data['data'] = $dtlaporan;
+      $data['fasyankes'] = dtdl::where('dinas_luar_id',$id)->get();
+      $cekstatus = collect($data['fasyankes'])->map(function($item,$i){
+                    $item->namafasyankes = FasyankesDt::where('id',$item->fasyankes_id)->first();//ambil nama untuk ditampilkan
+                    return $item;
+      });
+      $data['cekstatus'] = $cekstatus;
+      // $data['pegawai'] = dptl::where('dinas_luar_id')->get();
+      return response()->json($data);
+    }
+
+    public function laporanrelease(Request $request){
+      $data = hd::where('id',$request->dinas_luar_id)->first();
+      $dt['data'] = $data;
+      $dt['fasyankes'] = dtdl::where('dinas_luar_id',$request->dinas_luar_id)->get();
+      $mapkontak = collect($dt['fasyankes'])->map(function($item,$i){
+                      $item->kontak = detailkontak::where('dinas_luar_id',$item->dinas_luar_id)->where('fasyankes_id',$item->fasyankes_id)->get();
+                      $item->hasilkunjungan = ddlh::where('dinas_luar_id',$item->dinas_luar_id)->where('fasyankes_id',$item->fasyankes_id)->first();
+                      return $item;
+      });
+      // dd($mapkontak);
+      $dt['pegawai'] = dptl::where('dinas_luar_id',$request->dinas_luar_id)->get();
+      $dt['kontakkunjungan'] = $mapkontak;
+      $berangkat = $this->dateIdn($data->tanggal_berangkat);
+      $pulang = $this->dateIdn($data->tanggal_pulang);
+
+      $dt['tanggal'] = array('berangkat' => $berangkat, 'pulang' => $pulang);
+
+      // dd($dt);
+
+      return view('laporan.perjalanandinas.index',compact('dt'));
+      // dd($dt);
+      // dd($request->all());
+    }
+
+
+
+    public function fasyankesdt_json(){
+      $data = FasyankesDt::orderBy('nama','ASC')->get();
+      return $data;
+    }
     public function forminputdinas(){
       $datas = FasyankesDt::orderBy('nama','ASC')->get();
       return view('formkunjungan.index',compact('datas'));
@@ -298,7 +345,7 @@ class KunjunganController extends Controller
     }
     // get pegawai
     public function getpegawai(){
-      $data = Pegawai::all();
+      $data = Pegawai::orderBy('nama','ASC')->get();
       return response()->json($data);
     }
     //get nip selected fasyankes
@@ -309,6 +356,24 @@ class KunjunganController extends Controller
       $dtarray['allpegawai'] = Pegawai::orderBy('nama','ASC')->get();
       return response()->json($dtarray);
     }
+
+    public function getidfasyankes($dinas_luar_id,$id){
+        $dt = dtdl::where('dinas_luar_id',$dinas_luar_id)->where('fasyankes_id',$id)->first();
+        $data['data'] = $dt;
+        $data['fasyankes'] = $dt->fasyankes;
+        $data['allfasyankes'] = FasyankesDt::orderBy('nama','ASC')->get();
+        return response()->json($data);
+    }
+
+    public function gettimtujuan($id){
+      $data = dtdl::where('dinas_luar_id',$id)->get();
+      $map = $data->map(function($item,$i){
+              $item->namafasyankes = $item->fasyankes;
+              return $item;
+      });
+      return response()->json($map);
+    }
+
 
     public function lihatdetaildeskripsi($id){
       $data = HeaderKunjungan::finOrFail($id);

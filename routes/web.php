@@ -85,7 +85,7 @@ Route::get('/', function () {
 /* Role admin */
 Route::group(['middleware' => ['role:admin']], function () {
 // dtjson
-  Route::get('fasyankes_json','KunjunganController@fasyankesdt_json');
+  Route::get('fasyankesdt_json','KunjunganController@fasyankesdt_json');
   Route::get('headerkunjungan_json','KunjunganController@headerkunjungan_json');
   Route::get('fasyankes_json/{id}','KunjunganController@fasyankesdt_id');
 
@@ -104,8 +104,18 @@ Route::group(['middleware' => ['role:admin']], function () {
   Route::get('view-laporan-dinas','kunjunganController@viewpostlaporandinas');
   Route::get('getfasyankesfromdinas/{id}','kunjunganController@getffdinas');
 
+  Route::get('timtujuan/{id}','kunjunganController@gettimtujuan');
+
+  /*laporan*/
+   Route::get('laporan','kunjunganController@laporanindex');
+   Route::post('laporanrelease','kunjunganController@laporanrelease');
+   /*cek laporan ke 1*/
+   Route::get('laporan/{id}','kunjunganController@cetaklaporanuser');
+
+
   /* untuk edit data pada tabel pegawai view-input-dinas*/
   Route::get('get-pegawai-selected/{fasyankes}/get/{nip}','kunjunganController@getnipselected');
+  Route::get('get-fasyankes-selected/{fasyankes}/get/{nip}','kunjunganController@getidfasyankes');
 
 
   /*pengecekkan berkas dan amnil berkas */
