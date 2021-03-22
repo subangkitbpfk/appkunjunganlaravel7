@@ -203,7 +203,9 @@ class Expectation implements ExpectationInterface
             return;
         }
 
-        if ($return instanceof \Throwable) {
+        $type = \PHP_VERSION_ID >= 70000 ? "\Throwable" : "\Exception";
+
+        if ($return instanceof $type) {
             throw $return;
         }
 

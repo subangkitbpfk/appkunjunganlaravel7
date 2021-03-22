@@ -18,16 +18,17 @@
  * @license    http://github.com/padraic/mockery/blob/master/LICENSE New BSD License
  */
 
+use Mockery\ClosureWrapper;
 use Mockery\ExpectationInterface;
 use Mockery\Generator\CachingGenerator;
 use Mockery\Generator\Generator;
 use Mockery\Generator\MockConfigurationBuilder;
+use Mockery\Generator\MockNameBuilder;
 use Mockery\Generator\StringManipulationGenerator;
 use Mockery\Loader\EvalLoader;
 use Mockery\Loader\Loader;
 use Mockery\Matcher\MatcherAbstract;
-use Mockery\ClosureWrapper;
-use Mockery\Generator\MockNameBuilder;
+use Mockery\Reflector;
 
 class Mockery
 {
@@ -74,21 +75,27 @@ class Mockery
 
     /**
      * @return array
+     *
+     * @deprecated since 1.3.2 and will be removed in 2.0.
      */
     public static function builtInTypes()
     {
         $builtInTypes = array(
+            'self',
             'array',
-            'bool',
             'callable',
+            // Up to php 7
+            'bool',
             'float',
             'int',
-            'iterable',
-            'object',
-            'self',
             'string',
+            'iterable',
             'void',
         );
+
+        if (\PHP_VERSION_ID >= 70200) {
+            $builtInTypes[] = 'object';
+        }
 
         return $builtInTypes;
     }
@@ -96,6 +103,8 @@ class Mockery
     /**
      * @param string $type
      * @return bool
+     *
+     * @deprecated since 1.3.2 and will be removed in 2.0.
      */
     public static function isBuiltInType($type)
     {
@@ -211,7 +220,7 @@ class Mockery
      */
     public static function fetchMock($name)
     {
-        return self::$_container->fetchMock($name);
+        return self::getContainer()->fetchMock($name);
     }
 
     /**
@@ -854,27 +863,28 @@ class Mockery
     ) {
         $newMockName = 'demeter_' . md5($parent) . '_' . $method;
 
-        $parRef = null;
-        $parRefMethod = null;
-        $parRefMethodRetType = null;
+        if (\PHP_VERSION_ID >= 70000) {
+            $parRef = null;
+            $parRefMethod = null;
+            $parRefMethodRetType = null;
 
-        $parentMock = $exp->getMock();
-        if ($parentMock !== null) {
-            $parRef = new ReflectionObject($parentMock);
-        }
+            $parentMock = $exp->getMock();
+            if ($parentMock !== null) {
+                $parRef = new ReflectionObject($parentMock);
+            }
 
-        if ($parRef !== null && $parRef->hasMethod($method)) {
-            $parRefMethod = $parRef->getMethod($method);
-            $parRefMethodRetType = $parRefMethod->getReturnType();
+            if ($parRef !== null && $parRef->hasMethod($method)) {
+                $parRefMethod = $parRef->getMethod($method);
+                $parRefMethodRetType = Reflector::getReturnType($parRefMethod, true);
 
-            if ($parRefMethodRetType !== null) {
-                $nameBuilder = new MockNameBuilder();
-                $nameBuilder->addPart('\\' . $newMockName);
-                $type = $parRefMethodRetType->getName();
-                $mock = self::namedMock($nameBuilder->build(), $type);
-                $exp->andReturn($mock);
+                if ($parRefMethodRetType !== null) {
+                    $nameBuilder = new MockNameBuilder();
+                    $nameBuilder->addPart('\\' . $newMockName);
+                    $mock = self::namedMock($nameBuilder->build(), $parRefMethodRetType);
+                    $exp->andReturn($mock);
 
-                return $mock;
+                    return $mock;
+                }
             }
         }
 

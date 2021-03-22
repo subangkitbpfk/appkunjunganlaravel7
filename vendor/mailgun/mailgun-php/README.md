@@ -67,7 +67,7 @@ Attention: `$domain` must match to the domain you have configured on [app.mailgu
 ### All usage examples
 
 You will find more detailed documentation at [/doc](doc/index.md) and on 
-[https://documentation.mailgun.com](https://documentation.mailgun.com/api_reference.html).
+[https://documentation.mailgun.com](https://documentation.mailgun.com/en/latest/api_reference.html).
 
 ### Response
 
@@ -93,7 +93,7 @@ use Mailgun\Hydrator\ArrayHydrator;
 $configurator = new HttpClientConfigurator();
 $configurator->setApiKey('key-example');
 
-$mg = Mailgun::configure($configurator, new ArrayHydrator());
+$mg = new Mailgun($configurator, new ArrayHydrator());
 $data = $mg->domains()->show('example.com');
 
 foreach ($data['receiving_dns_records'] as $record) {
@@ -124,10 +124,15 @@ Go to http://bin.mailgun.net. The Postbin will generate a special URL. Save that
 For example, the bin id in this URL (http://bin.mailgun.net/aecf68de) is `aecf68de`.*
 
 ```php
+use Mailgun\HttpClient\HttpClientConfigurator;
+use Mailgun\Hydrator\NoopHydrator;
+
 $configurator = new HttpClientConfigurator();
 $configurator->setEndpoint('http://bin.mailgun.net/aecf68de');
+$configurator->setApiKey('key-example');
 $configurator->setDebug(true);
-$mg = Mailgun::configure($configurator);
+
+$mg = new Mailgun($configurator, new NoopHydrator());
 
 # Now, compose and send your message.
 $mg->messages()->send('example.com', [
@@ -156,7 +161,6 @@ batch messaging is eliminated!
 If you are using a framework you might consider these composer packages to make the framework integration easier. 
 
 * [tehplague/swiftmailer-mailgun-bundle](https://github.com/tehplague/swiftmailer-mailgun-bundle) for Symfony
-* [Bogardo/Mailgun](https://github.com/Bogardo/Mailgun) for Laravel
 * [katanyoo/yii2-mailgun-mailer](https://github.com/katanyoo/yii2-mailgun-mailer) for Yii2
 * [narendravaghela/cakephp-mailgun](https://github.com/narendravaghela/cakephp-mailgun) for CakePHP
 * [drupal/mailgun](https://www.drupal.org/project/mailgun) for Drupal
