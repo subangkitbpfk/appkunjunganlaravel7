@@ -90,7 +90,7 @@ Route::group(['middleware' => ['role:admin']], function () {
   Route::get('fasyankes_json/{id}','KunjunganController@fasyankesdt_id');
 
   /*ui inputan mas denny*/
-  Route::get('get-pegawai','kunjunganController@getpegawai');
+  Route::get('get-pegawai','KunjunganController@getpegawai');
 
   Route::get('form-input-dinas','kunjunganController@forminputdinas');
   Route::post('form-input-dinas','kunjunganController@postinputdinas');
