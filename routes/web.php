@@ -92,30 +92,30 @@ Route::group(['middleware' => ['role:admin']], function () {
   /*ui inputan mas denny*/
   Route::get('get-pegawai','KunjunganController@getpegawai');
 
-  Route::get('form-input-dinas','kunjunganController@forminputdinas');
-  Route::post('form-input-dinas','kunjunganController@postinputdinas');
-  Route::get('view-input-dinas','kunjunganController@viewpostinputdinas');
+  Route::get('form-input-dinas','KunjunganController@forminputdinas');
+  Route::post('form-input-dinas','KunjunganController@postinputdinas');
+  Route::get('view-input-dinas','KunjunganController@viewpostinputdinas');
 
   Route::get('pegawai_json/{id}','KunjunganController@pegawai_id');
   Route::get('fasyankesdl_json/{id}','KunjunganController@fasyankesdl');
 
-  Route::get('form-laporan-dinas','kunjunganController@formlaporandinas');
-  Route::post('form-laporan-dinas','kunjunganController@postlaporandinas');
-  Route::get('view-laporan-dinas','kunjunganController@viewpostlaporandinas');
-  Route::get('getfasyankesfromdinas/{id}','kunjunganController@getffdinas');
+  Route::get('form-laporan-dinas','KunjunganController@formlaporandinas');
+  Route::post('form-laporan-dinas','KunjunganController@postlaporandinas');
+  Route::get('view-laporan-dinas','KunjunganController@viewpostlaporandinas');
+  Route::get('getfasyankesfromdinas/{id}','KunjunganController@getffdinas');
 
-  Route::get('timtujuan/{id}','kunjunganController@gettimtujuan');
+  Route::get('timtujuan/{id}','KunjunganController@gettimtujuan');
 
   /*laporan*/
-   Route::get('laporan','kunjunganController@laporanindex');
-   Route::post('laporanrelease','kunjunganController@laporanrelease');
+   Route::get('laporan','KunjunganController@laporanindex');
+   Route::post('laporanrelease','KunjunganController@laporanrelease');
    /*cek laporan ke 1*/
-   Route::get('laporan/{id}','kunjunganController@cetaklaporanuser');
+   Route::get('laporan/{id}','KunjunganController@cetaklaporanuser');
 
 
   /* untuk edit data pada tabel pegawai view-input-dinas*/
-  Route::get('get-pegawai-selected/{fasyankes}/get/{nip}','kunjunganController@getnipselected');
-  Route::get('get-fasyankes-selected/{fasyankes}/get/{nip}','kunjunganController@getidfasyankes');
+  Route::get('get-pegawai-selected/{fasyankes}/get/{nip}','KunjunganController@getnipselected');
+  Route::get('get-fasyankes-selected/{fasyankes}/get/{nip}','KunjunganController@getidfasyankes');
 
 
   /*pengecekkan berkas dan amnil berkas */
@@ -127,7 +127,7 @@ Route::group(['middleware' => ['role:admin']], function () {
   /*admin */
 
 // end dtjson
-  Route::get('laporan-kunjugan','LaporankunjunganController@index');
+  Route::get('laporan-kunjugan','LaporanKunjunganController@index');
   Route::get('halamanutama','KunjunganController@index');
   Route::get('kunjungan','KunjunganController@viewkunjungan');
   Route::get('tambah-kunjungan','KunjunganController@tambahkunjungan');
