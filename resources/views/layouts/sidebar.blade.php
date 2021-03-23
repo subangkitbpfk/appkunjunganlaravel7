@@ -60,13 +60,19 @@
               <li class="nav-item">
                 <a href="{{URL::to('/view-input-dinas')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p><span class="fa fa-eye"></span> Lihat Tabel DL</p>
+                  <p><span class="fa fa-eye"></span> Tabel DL</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{URL::to('/view-laporan-dinas')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p><span class="fa fa-eye"></span> Lihat Tabel Laporan DL</p>
+                  <p><span class="fa fa-eye"></span> Tabel Laporan DL</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{URL::to('/home-fasyankes')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p><span class="fa fa-briefcase"></span> Data Fasyankes </p>
                 </a>
               </li>
               <li class="nav-item">
