@@ -62,6 +62,13 @@ class KunjunganController extends Controller
       // dd($request->all());
     }
 
+    public function indexfasyankes(){//master fasyankes
+      $data = FasyankesDt::orderBy('id','DESC')->get();
+      $provinsi = $this->provinsi();
+      return view('master.fasyankes.index',compact('data','provinsi'));
+    }
+
+
     public function postfasyankes(Request $request){
       // dd($request->all());
       $datafasyankes = FasyankesDt::create([
