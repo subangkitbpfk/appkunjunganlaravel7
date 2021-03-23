@@ -101,7 +101,11 @@
           <td>{{@$dt->provinsi == '' ? '-' : $dt->provinsi}}</td>
           <td>{{@$dt->kota == '' ? '-' : $dt->kota}}</td>
           <td>{{@$dt->telepon == '' ? '-' : $dt->telepon}}</td>
-          <td><button class="btn btn-xs btn-default" onclick="hapusfasyankes()"><i class="fa fa-trash" style="color:red"></i></td>
+          <td>
+            <!-- <form class="" id="formhapus" action="#" method="post"> -->
+            <button class="btn btn-xs btn-default" onclick="hapusfasyankes({{$dt->id}})"><i class="fa fa-trash" style="color:red"></i>
+            <!-- </form> -->
+          </td>
         </tr>
         @endforeach
       </tbody>
@@ -116,6 +120,15 @@
 @section('custom-foot')
 <script type="text/javascript">
   $(document).ready(function(){
+    //set up csrf_field
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    //end csrf field
+
+
     //select onclick Provinsi
     $('#keyprovinsi').change(function(){
         var value = $(this).val();
@@ -150,5 +163,38 @@
     // alert("test");
     $("#myModal").modal('show');
   }
+
+  function hapusfasyankes(id){
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    var fasyankes_id = id;
+    confirm("Apakah anda yakin ingin menghapus row ini ?");
+    $.ajax({
+            type: "DELETE",
+            url: "{{ url('delete-fasyankes')}}"+'/'+fasyankes_id,
+            success: function (data) {
+                // $("#post_id_" + post_id).remove();
+                console.log(data)
+                if(data == true){
+                  //reload
+                  window.location.reload();
+                }
+            }
+            // error: function (data) {
+            //     console.log('Error:', data);
+            // }
+
+    });
+
+
+    // alert(id);
+
+
+  }
+
+
 </script>
 @stop
