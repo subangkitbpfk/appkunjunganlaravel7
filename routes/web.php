@@ -85,12 +85,17 @@ Route::get('/', function () {
 /* Role admin */
 Route::group(['middleware' => ['role:admin']], function () {
 // dtjson
+  Route::get('jsonprovinsi','ProvinsiController@jsonprovinsi'); //-> json provovinsi
+  Route::get('jsonprovinsi/{nama}','KunjunganController@jsonprovinsinm'); //-> json provovinsi
+
   Route::get('fasyankesdt_json','KunjunganController@fasyankesdt_json');
   Route::get('headerkunjungan_json','KunjunganController@headerkunjungan_json');
   Route::get('fasyankes_json/{id}','KunjunganController@fasyankesdt_id');
 
   /*ui inputan mas denny*/
   Route::get('get-pegawai','KunjunganController@getpegawai');
+  Route::post('post-fasyankes','KunjunganController@postfasyankes');//add fasyankes baru
+  // postfasyankes
 
   Route::get('form-input-dinas','KunjunganController@forminputdinas');
   Route::post('form-input-dinas','KunjunganController@postinputdinas');

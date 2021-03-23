@@ -99,10 +99,10 @@
                     <button type="submit" class="btn btn-md btn-info" id="btnsimpan" name="btnsimpan" style="padding: 18px;margin-right:10px;margin-bottom:40px">SIMPAN</button>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-md btn-warning" id="btnposting" style="padding: 18px;margin-bottom:40px">POSTING</button>
+                    <!-- <button type="button" class="btn btn-md btn-warning" id="btnposting" style="padding: 18px;margin-bottom:40px">POSTING</button> -->
                 </td>
                 <td>
-                    <button type="button" class="btn btn-md btn-danger" id="btndeaktif" style="padding: 18px;margin-left:10px;margin-bottom:40px">DEAKTIF</button>
+                    <!-- <button type="button" class="btn btn-md btn-danger" id="btndeaktif" style="padding: 18px;margin-left:10px;margin-bottom:40px">DEAKTIF</button> -->
                 </td>
             </tr>
 
@@ -123,7 +123,47 @@
           <h4 class="modal-title">Form Tambah Fasyankes</h4>
         </div>
         <div class="modal-body">
-          <p>Some text in the modal.</p>
+          <form class="" action="{{URL('post-fasyankes')}}" method="post">
+            {{csrf_field()}}
+            <!-- open -->
+            <form>
+              <div class="form-group">
+                <label for="nama">Nama Fasyankes </label>
+                <input type="text" class="form-control" id="nama" placeholder="RS Siloam" name="namafasyankes">
+              </div>
+              <div class="form-group">
+                <label for="alamat">Alamat </label>
+                <input type="text" class="form-control" id="alamat" placeholder="Jl....." name="alamat">
+              </div>
+
+              <div class="form-group">
+                <label for="alamat">Provinsi </label>
+                <select class="form-control" id="keyprovinsi" name="provinsi">
+                  <option value="-" selected>Pilih</option>
+                  @foreach($provinsi as $key => $node)
+                  <option value="{{$key}}">{{$key}}</option>
+                  @endforeach
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="alamat">Kota </label>
+                <span id="cbbkota"></span>
+              </div>
+              <div class="form-group">
+                <label for="alamat">Telp </label>
+                <input type="text" class="form-control" id="telp" placeholder="031-56554434" name="telp">
+              </div>
+              <div class="form-group">
+                <label for="alamat">Email </label>
+                <input type="text" class="form-control" id="email" placeholder="subangkit@ymail.com" name="email">
+              </div>
+              <button type="submit" class="btn btn-default">Simpan</button>
+            </form>
+            <!-- close -->
+
+
+          </form>
         </div>
         <div class="modal-footer">
           {{-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> --}}
@@ -142,6 +182,35 @@
 @section('custom-foot')
 <script type="text/javascript">
 $(document).ready(function(){
+  //select onclick Provinsi
+  $('#keyprovinsi').change(function(){
+      var value = $(this).val();
+      // alert(value);
+      console.log(value);
+      // ajax
+      $.ajax({
+      url: "{{ URL('jsonprovinsi') }}" + '/' +value,
+      type: 'GET',
+      dataType: 'json',
+          success:function(data){ // detailrs
+          $("#cbbkota").html('');
+          var html = '';
+          console.log(data);
+          html = '<select class="form-control" name="kota" id="kota">';
+            for (var i = 0; i < data[0].length; i++) {
+              html += '<option value="'+data[0][i]+'">'+data[0][i]+'</option>';
+            }
+          html += '</select>';
+          $("#cbbkota").append(html);
+          console.log(html);
+
+
+          }
+      });
+      //end ajax
+  });
+  //endselect
+
 
     $('#fasyankes').select2();
     $('.pegawai').select2();
@@ -187,6 +256,8 @@ $(document).ready(function(){
 
     });
 });
+
+
 
 function add_form()
         {
