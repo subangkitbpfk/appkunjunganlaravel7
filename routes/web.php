@@ -96,6 +96,7 @@ Route::group(['middleware' => ['role:admin']], function () {
   Route::get('get-pegawai','KunjunganController@getpegawai');
   Route::get('home-fasyankes','KunjunganController@indexfasyankes');//add fasyankes baru
   Route::post('post-fasyankes','KunjunganController@postfasyankes');//add fasyankes baru
+  Route::delete('delete-fasyankes/{id}','KunjunganController@deletefasyankes');//delete fasyankes baru
 
   // postfasyankes
 

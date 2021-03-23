@@ -88,6 +88,14 @@ class KunjunganController extends Controller
       }
     }
 
+    public function deletefasyankes($id){
+      $fasyankes = FasyankesDt::find($id);
+      $status = $fasyankes->delete(); //returns true/false
+      if($status){
+        return response()->json($status);
+      }
+    }
+
 
 
     public function fasyankesdt_json(){
