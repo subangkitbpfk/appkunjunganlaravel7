@@ -62,6 +62,25 @@ class KunjunganController extends Controller
       // dd($request->all());
     }
 
+    public function postfasyankes(Request $request){
+      // dd($request->all());
+      $datafasyankes = FasyankesDt::create([
+        'nama' => $request->namafasyankes,
+        'alamat' => $request->alamat,
+        'kota' => $request->kota,
+        'provinsi' => $request->provinsi,
+        'telepon' => $request->telp,
+        'email' => $request->email
+        ]);
+      if($datafasyankes){
+        //sukses
+        return redirect()->back()->with('success', "Data sudah di masukkan dengan sukses!");
+        // dd("sukses");
+      }else{
+        dd("gagal");
+      }
+    }
+
 
 
     public function fasyankesdt_json(){

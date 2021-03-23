@@ -123,7 +123,7 @@
           <h4 class="modal-title">Form Tambah Fasyankes</h4>
         </div>
         <div class="modal-body">
-          <form class="" action="index.html" method="post">
+          <form class="" action="{{URL('post-fasyankes')}}" method="post">
             {{csrf_field()}}
             <!-- open -->
             <form>
@@ -133,12 +133,12 @@
               </div>
               <div class="form-group">
                 <label for="alamat">Alamat </label>
-                <input type="text" class="form-control" id="alamat" placeholder="Jl.....">
+                <input type="text" class="form-control" id="alamat" placeholder="Jl....." name="alamat">
               </div>
 
               <div class="form-group">
                 <label for="alamat">Provinsi </label>
-                <select class="form-control" id="keyprovinsi">
+                <select class="form-control" id="keyprovinsi" name="provinsi">
                   <option value="-" selected>Pilih</option>
                   @foreach($provinsi as $key => $node)
                   <option value="{{$key}}">{{$key}}</option>
@@ -152,11 +152,11 @@
               </div>
               <div class="form-group">
                 <label for="alamat">Telp </label>
-                <input type="text" class="form-control" id="telp" placeholder="031-56554434">
+                <input type="text" class="form-control" id="telp" placeholder="031-56554434" name="telp">
               </div>
               <div class="form-group">
                 <label for="alamat">Email </label>
-                <input type="text" class="form-control" id="email" placeholder="subangkit@ymail.com">
+                <input type="text" class="form-control" id="email" placeholder="subangkit@ymail.com" name="email">
               </div>
               <button type="submit" class="btn btn-default">Simpan</button>
             </form>

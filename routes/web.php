@@ -94,6 +94,8 @@ Route::group(['middleware' => ['role:admin']], function () {
 
   /*ui inputan mas denny*/
   Route::get('get-pegawai','KunjunganController@getpegawai');
+  Route::post('post-fasyankes','KunjunganController@postfasyankes');//add fasyankes baru
+  // postfasyankes
 
   Route::get('form-input-dinas','KunjunganController@forminputdinas');
   Route::post('form-input-dinas','KunjunganController@postinputdinas');
