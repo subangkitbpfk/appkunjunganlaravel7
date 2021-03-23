@@ -99,10 +99,10 @@
                     <button type="submit" class="btn btn-md btn-info" id="btnsimpan" name="btnsimpan" style="padding: 18px;margin-right:10px;margin-bottom:40px">SIMPAN</button>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-md btn-warning" id="btnposting" style="padding: 18px;margin-bottom:40px">POSTING</button>
+                    <!-- <button type="button" class="btn btn-md btn-warning" id="btnposting" style="padding: 18px;margin-bottom:40px">POSTING</button> -->
                 </td>
                 <td>
-                    <button type="button" class="btn btn-md btn-danger" id="btndeaktif" style="padding: 18px;margin-left:10px;margin-bottom:40px">DEAKTIF</button>
+                    <!-- <button type="button" class="btn btn-md btn-danger" id="btndeaktif" style="padding: 18px;margin-left:10px;margin-bottom:40px">DEAKTIF</button> -->
                 </td>
             </tr>
 

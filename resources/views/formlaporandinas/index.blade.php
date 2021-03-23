@@ -159,7 +159,7 @@
 <div class="row">
     <div class="col-md-12">
         <button type="submit" class="btn btn-sm btn-info" style="margin-left:5%;padding:20px"><i class="fa fa-save"></i>  SIMPAN</button>
-        <button type="button" class="btn btn-sm btn-success" style="padding:20px;color:white;width:100px"><i class="fa fa-file" style="color: white"></i>  FINAL</button>
+        <!-- <button type="button" class="btn btn-sm btn-success" style="padding:20px;color:white;width:100px"><i class="fa fa-file" style="color: white"></i>  FINAL</button> -->
 
     </div>
 
