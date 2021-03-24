@@ -192,7 +192,7 @@ class KunjunganController extends Controller
         // return redirect()->back()->with('success', "Data sudah di masukkan dengan sukses!");
         dd("data sudah pernah dimasukkan");
       }
-      dd("teest");
+      // dd("teest");
 
       /* insert hasil dinas luar */
       $insertddlh  = ddlh::create([
