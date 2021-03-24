@@ -128,12 +128,20 @@ class KunjunganController extends Controller
 
 
     /*ambil berkas json*/
-    public function ambil_berkas($id){
+    public function ambil_berkas($id,$dinas_id){//ambil fasyankes_id dan dinas_luar_id
+      $data = dk::where('fasyankes_id',$id)->where('dinas_luar_id',$dinas_id)->get();
+      if(empty($data)){
+        return "kosong";
+      }
+      return $data;
+    }
+    public function ambil_lihat_berkas($id){
       $data = dk::where('fasyankes_id',$id)->get();
       if(empty($data)){
         return "kosong";
       }
       return $data;
+
     }
 
     /*edit pegawai*/

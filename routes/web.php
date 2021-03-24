@@ -127,7 +127,8 @@ Route::group(['middleware' => ['role:admin']], function () {
 
 
   /*pengecekkan berkas dan amnil berkas */
-  route::get('ambil_berkas/{id}','KunjunganController@ambil_berkas');
+  route::get('ambil_lihat_berkas/{id}','KunjunganController@ambil_lihat_berkas');
+  route::get('ambil_berkas/{id}/{dinas_id}','KunjunganController@ambil_berkas');
   /*end pengecekkan dan amnbil berkas */
   route::get('ambil_kontak/{id}','KunjunganController@ambil_kontak');
   /* update pegawai*/
