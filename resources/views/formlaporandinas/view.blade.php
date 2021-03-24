@@ -100,7 +100,7 @@
                <td><?php echo $i++?></td>
                <td>{{$dt->dinas_luar_id}}</td>
                <td>{{$dt->fasyankes['nama']}}</td>
-               <td><button class="btn btn-sm btn-info" onclick="ambil_berkas({{$dt->fasyankes_id}})"><i class="fa fa-eye"> Berkas</i></button></td>
+               <td><button class="btn btn-sm btn-info" onclick="ambil_berkas({{$dt->fasyankes_id}},{{$dt->dinas_luar_id}})"><i class="fa fa-eye"> Berkas</i></button></td>
                <td><button class="btn btn-sm btn-info"><i class="fa fa-users" onclick="ambil_kontak({{$dt->fasyankes_id}})"> Kontak</i></button></td>
                <td><button class="btn btn-sm btn-warning"><i class="fa fa-info-circle"> Detail </i></button> <button class="btn btn-sm btn-danger"><i class="fa fa-trash"> Hapus </i></td>
 
@@ -228,15 +228,15 @@
         }
     }
 
-    function ambil_berkas(id){
+    function ambil_berkas(id,dinas_id){
       // alert(id);
       $.ajax({
-          url: "{{ URL('ambil_berkas') }}" + '/' +id,
+          url: "{{ URL('ambil_berkas') }}" + '/' +id+'/'+dinas_id,
           type: 'GET',
           dataType: 'json',
               success:function(data){ // detailrs
               // console.log(data.nama); /tampil_berkas/'+i+'/'+id+'"
-              // console.log(data);
+              console.log(data);
 
               var ulhtml = '';
               var m = 1;
@@ -254,11 +254,12 @@
     function tampilkan_berkas(i,id){
       // alert(i)
       // alert(id)
+      // console.log(i+'-'+id);
       var pointer = i;
 
       // aja
       $.ajax({
-          url: "{{ URL('ambil_berkas') }}" + '/' +id,
+          url: "{{ URL('ambil_lihat_berkas') }}" + '/' +id,
           type: 'GET',
           dataType: 'json',
               success:function(data){ // detailrs
