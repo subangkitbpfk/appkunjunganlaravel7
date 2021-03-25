@@ -134,7 +134,6 @@ Route::group(['middleware' => ['role:admin']], function () {
   /* update pegawai*/
   route::post('post_pegawai/','KunjunganController@kirim_data_pegawai');//postpegawai
   route::get('edit_pegawai/{id}','KunjunganController@edit_pegawai');
-
   /*admin */
 
 // end dtjson

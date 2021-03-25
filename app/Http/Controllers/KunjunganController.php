@@ -25,7 +25,6 @@ class KunjunganController extends Controller
     public function kirim_data_pegawai(Request $request){
       $data = $request->all();
       // dd($data);
-
       // validasi input
       if(isset($data['pin_old'])){
         // dd("update");
