@@ -109,10 +109,11 @@
       </tr>
       <tr>
         <td>
+          
 
 
           @if($dtdetail->fasyankes_id == $dtdetail->hasilkunjungan['fasyankes_id'])
-            {{$dtdetail->hasilkunjungan['hasil_dinas']}}
+            {!!$dtdetail->hasilkunjungan['hasil_dinas']!!}
             @else
             -
           @endif

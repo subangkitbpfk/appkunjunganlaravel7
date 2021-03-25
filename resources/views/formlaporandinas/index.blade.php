@@ -77,7 +77,7 @@
     </div>
 </div>
 
-<div class="row">
+<!-- <div class="row">
     <div class="col-md-6" style="margin-left:5%;padding-bottom:5px">
         <label for="Hasil Dinas Luar"></label>
         <div class="input-group">
@@ -87,7 +87,7 @@
             <textarea class="form-control" aria-label="With textarea" name="hasildinasluar"></textarea>
           </div>
     </div>
-</div>
+</div> -->
 
 <div class="row">
     <div class="col-md-6" style="margin-left:5%;padding-bottom:5px">
@@ -120,6 +120,15 @@
     </div>
 </div>
 {{-- end kontak --}}
+
+<!-- ck editor -->
+<div class="row">
+  <div class="col-md-12" style="margin-left:5%">
+    <textarea name="hasildinasluar" id="editor1" ></textarea>
+  </div>
+</div>
+<!-- end ck editor -->
+
 
 {{-- persetujuan --}}
 <div class="row">
@@ -172,8 +181,10 @@
 
 @endsection
 @section('custom-foot')
+<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+    CKEDITOR.replace( 'hasildinasluar' );
     $('.kodefaskes').select2();
     $('.fasyankes').select2();
     $.fn.datepicker.defaults.format = "yyyy-mm-dd";
