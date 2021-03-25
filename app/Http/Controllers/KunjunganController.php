@@ -21,6 +21,42 @@ use App\Detaildinasluarhasil as ddlh;
 
 class KunjunganController extends Controller
 {
+  /*post pegawai*/
+    public function kirim_data_pegawai(Request $request){
+      $data = $request->all();
+      // dd($data);
+
+      // validasi input
+      if(isset($data['pin_old'])){
+        // dd("update");
+        /* hapus pegawai lama */
+        $hapus = dptl::where('dinas_luar_id',$data['dinas_luar_id'])->where('nip',$data['pin_old'])->delete();
+         /* insert pegawai baru */
+        if($hapus){ //jika sukses dihapus
+
+          $insert = dptl::create([
+                                'dinas_luar_id' => $data['dinas_luar_id'],
+                                'nip' => $data['pegawai_id']
+                              ]);
+          if($insert){
+            return redirect()->back()->with('success', "Data sudah di masukkan dengan sukses!");
+          }
+
+        }
+        //end if hapus
+      }else{
+        /* insert bm_dinas_luar */
+        $insert = dptl::create([
+                              'dinas_luar_id' => $data['dinas_luar_id'],
+                              'nip' => $data['pegawai_id']
+                            ]);
+        if($insert){
+          return redirect()->back()->with('success', "Data sudah di masukkan dengan sukses!");
+        }
+
+      }
+
+    }
     public function laporanindex(){//laporan
       $dtheader = hd::orderBy('id','DESC')->get();
       return view('laporan.index',compact('dtheader'));
@@ -155,6 +191,7 @@ class KunjunganController extends Controller
       return $map;
 
     }
+
 
     public function ambil_kontak($id){
 

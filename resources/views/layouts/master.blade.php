@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="csrf-token" content="{{ csrf_token() }}" />
-  <title>App Kepegawaian Subangkit</title>
+  <title>Aplikasi Kunjungan Fasyankes </title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   @include('includes.styles')
@@ -31,7 +31,7 @@
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
-          
+
           <div class="col-sm-6">
             <!-- breadcrumb -->
             <!-- <ol class="breadcrumb float-sm-right">

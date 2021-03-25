@@ -27,9 +27,12 @@
             </tbody>
           </thead>
         </table>
-        <form action="#" method="post">
+        <form method="post" action="{{url('post_pegawai')}}" >
           {{csrf_field()}}
+          <input type="hidden" value="15" name="dinas_luar_id"/>
+          <span id="dinas_luar_id"></span>
         <span id="form_ubah_data"></span>
+
 
       </form>
       </div>
@@ -76,6 +79,7 @@
         </table>
         <form action="#" method="post">
           {{csrf_field()}}
+
         <span id="fasyankes_ubah_data"></span>
 
       </form>
@@ -188,17 +192,18 @@
 
         if(tanya == true){
           $('#form_ubah_data').html('');
+          $('#dinas_luar_id').html('');
             // modal open
             $.ajax({
                 url: "{{ URL('edit_pegawai') }}" + '/' +id,
                 type: 'GET',
                 dataType: 'json',
                     success:function(data){
-
-
                       console.log(data);
                       var dinas_id='';
                       var pegawai_id='';
+
+                      var formhidden = '<input type="hidden" value="'+data[0].dinas_luar_id+'" name="dinas_luar_id">';
 
 
                       var html ='';
@@ -215,6 +220,7 @@
                         }
 
                           // $('#pegawai_ubah_data').append(html);
+                          $('#dinas_luar_id').append(formhidden);
                           $('#modaleditpegawai').modal('show');
                     }
                 });
@@ -240,20 +246,20 @@
             type: 'GET',
             dataType: 'json',
               success:function(data){
-                // console.log(data);
+                console.log(data);
                 // pegawai
-                        form += '<div class="form-group"><label for="usr">Pegawai lama:</label><input type="hidden" name="pin" value="'+data.pegawai.nip+'"/><input type="text" class="form-control" id="usr" value="'+data.pegawai.nama+'" readonly></div>';
+                        form += '<div class="form-group"><label for="usr">Pegawai lama:</label><input type="hidden" name="pin_old" value="'+data.data.nip+'"/><input type="text" class="form-control" id="usr" value="'+data.pegawai.nama+'" readonly></div>';
                         form += ' <div class="form-group">';
                         form +=  '<label for="sel1">Pilih diganti Pegawai:</label>';
-                        form +=   '<select class="form-control" id="sel1">';
+                        form +=   '<select class="form-control" id="sel1" name="pegawai_id">';
                         for(var i=0;i<data['allpegawai'].length;i++){
                         form +=   '<option value="'+data['allpegawai'][i]['id']+'">'+data['allpegawai'][i]['nama']+'</option>';
                         }
                         form +=   '</select>';
                         form +=   '</div> ';
-                        form += '<button class="btn btn-sm btn-success">Ubah data</button>';
+                        form += '<button class="btn btn-sm btn-success" type="submit">Ubah data</button>';
                 console.log("data masuk");
-                $('#form_ubah_data').html('');
+                // $('#form_ubah_data').html('');
                 $('#form_ubah_data').append(form);
 
                 // end pegawai selected
@@ -376,13 +382,13 @@
                 var form='';
                         form += ' <div class="form-group">';
                         form +=  '<label for="sel1">Pilih Pegawai:</label>';
-                        form +=   '<select class="form-control" id="sel1">';
+                        form +=   '<select class="form-control" id="sel1" name="pegawai_id">';
                         for(var i =0;i<data.length;i++){
                         form +=   '<option value="'+data[i]['id']+'">'+data[i]['nama']+'</option>';
                         }
                         form +=   '</select>';
                         form +=   '</div> ';
-                        form += '<button class="btn btn-sm btn-success">Save data</button>';
+                        form += '<button class="btn btn-sm btn-success" type="submit">Save data</button>';
                         $('#form_ubah_data').append(form);
                         //btn pilih disable
               }

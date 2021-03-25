@@ -5,8 +5,18 @@
     <title>Laporan</title>
   </head>
   <body>
-    <center><h3>LAPORAN PERJALANAN DINAS</h3></center><br>
+
     <?php $abjad = array('A','B','C','D','E','F','G','H','I','J'); ?>
+
+    <table style="border:0px solid black;margin:auto;width:80%;padding-left:20%">
+      <tr>
+        <td><u>LAPORAN PERJALANAN DINAS</u></td>
+      </tr>
+      <tr >
+        <td>&nbsp&nbsp&nbsp&nbsp&nbspNo. SJ.01.03/XLX.4/<b>{{$dt['fasyankes'][0]->dinas_luar_id}}</b>/2021</td>
+      </tr>
+    </table><br>
+
 
     <table style="border:0px solid black;margin:auto;width:80%">
       <tr>
@@ -109,7 +119,7 @@
       </tr>
       <tr>
         <td>
-          
+
 
 
           @if($dtdetail->fasyankes_id == $dtdetail->hasilkunjungan['fasyankes_id'])

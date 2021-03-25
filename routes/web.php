@@ -132,7 +132,9 @@ Route::group(['middleware' => ['role:admin']], function () {
   /*end pengecekkan dan amnbil berkas */
   route::get('ambil_kontak/{id}','KunjunganController@ambil_kontak');
   /* update pegawai*/
+  route::post('post_pegawai/','KunjunganController@kirim_data_pegawai');//postpegawai
   route::get('edit_pegawai/{id}','KunjunganController@edit_pegawai');
+
   /*admin */
 
 // end dtjson

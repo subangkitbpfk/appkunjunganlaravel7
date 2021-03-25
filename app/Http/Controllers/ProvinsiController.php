@@ -8,7 +8,7 @@ class ProvinsiController extends Controller
 {
     public function jsonprovinsi(){
       // open
-return array(
+      data =  array(
         'Aceh' => array(
                 'Kabupaten Aceh Barat',
                 'Kabupaten Aceh Barat Daya',
@@ -589,5 +589,6 @@ return array(
                 ),
         );
       //close
+      return response()->json_encode($data);
     }
 }
